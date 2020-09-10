@@ -1,11 +1,11 @@
 ﻿namespace Spx.Navix.Commands
 {
-    public readonly struct ForwardNavCommand<TScreen>: INavigationCommand where TScreen: Screen
+    public readonly struct ForwardNavCommand: INavigationCommand
     {
-        public TScreen Screen { get; }
-        public IScreenResolver<TScreen> Resolver { get; }
+        public Screen Screen { get; }
+        public IScreenResolver Resolver { get; }
 
-        public ForwardNavCommand(TScreen screen, IScreenResolver<TScreen> resolver)
+        public ForwardNavCommand(Screen screen, IScreenResolver resolver)
         {
             Screen = screen;
             Resolver = resolver;

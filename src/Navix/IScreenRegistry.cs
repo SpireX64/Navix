@@ -2,6 +2,6 @@
 {
     public interface IScreenRegistry
     {
-        void Register<TScreen>(IScreenResolver<TScreen> resolver) where TScreen : Screen;
+        void Register<TScreen>(IScreenResolver resolver) where TScreen : Screen;
     }
 }

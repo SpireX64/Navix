@@ -52,8 +52,8 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            registry.Register(new ScreenResolverStub1());
-            
+            registry.Register<ScreenStub1>(new ScreenResolverStub1());
+
             var router = new Router(registry);
             var screen = new ScreenStub1();
             
@@ -95,7 +95,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            registry.Register(new ScreenResolverStub1());
+            registry.Register<ScreenStub1>(new ScreenResolverStub1());
             
             var router = new Router(registry);
             var screen = new ScreenStub1();

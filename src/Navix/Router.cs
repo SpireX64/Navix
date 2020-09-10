@@ -17,7 +17,7 @@ namespace Spx.Navix
             _manager = new NavigationManager();
         }
 
-        private IScreenResolver<TScreen> TryGetScreenResolver<TScreen>(TScreen screen) where TScreen : Screen
+        private IScreenResolver TryGetScreenResolver<TScreen>(TScreen screen) where TScreen : Screen
         {
             if (screen == null)
                 throw new NullReferenceException("Given screen is null");
@@ -31,35 +31,35 @@ namespace Spx.Navix
         public void NavigateTo<TScreen>(TScreen screen) where TScreen : Screen
         {
             var resolver = TryGetScreenResolver(screen);
-            var command = new ForwardNavCommand<TScreen>(screen, resolver);
+            var command = new ForwardNavCommand(screen, resolver);
             
-            _manager.ExecuteCommand(command);
+            _manager.SendCommand(command);
         }
 
         public void Replace<TScreen>(TScreen screen) where TScreen : Screen
         {
             var resolver = TryGetScreenResolver(screen);
-            var command = new ReplaceNavCommand<TScreen>(screen, resolver);
+            var command = new ReplaceNavCommand(screen, resolver);
             
-            _manager.ExecuteCommand(command);
+            _manager.SendCommand(command);
         }
 
         public void Back()
         {
             var command = new BackNavCommand();
-            _manager.ExecuteCommand(command);
+            _manager.SendCommand(command);
         }
 
         public void BackTo<TScreen>() where TScreen : Screen
         {
             var command = BackToNavCommand.For<TScreen>();
-            _manager.ExecuteCommand(command);
+            _manager.SendCommand(command);
         }
 
         public void BackToRoot()
         {
             var command = new BackToRootNavCommand();
-            _manager.ExecuteCommand(command);
+            _manager.SendCommand(command);
         }
     }
 }

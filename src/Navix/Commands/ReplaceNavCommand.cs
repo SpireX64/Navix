@@ -1,11 +1,11 @@
 ﻿namespace Spx.Navix.Commands
 {
-    public readonly struct ReplaceNavCommand<TScreen>: INavigationCommand where TScreen: Screen
+    public readonly struct ReplaceNavCommand: INavigationCommand
     {
-        public TScreen Screen { get; }
-        public IScreenResolver<TScreen> Resolver { get; }
+        public Screen Screen { get; }
+        public IScreenResolver Resolver { get; }
 
-        public ReplaceNavCommand(TScreen screen, IScreenResolver<TScreen> resolver)
+        public ReplaceNavCommand(Screen screen, IScreenResolver resolver)
         {
             Screen = screen;
             Resolver = resolver;

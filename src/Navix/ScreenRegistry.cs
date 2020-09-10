@@ -4,12 +4,12 @@ namespace Spx.Navix
 {
     public class ScreenRegistry: IScreenRegistry
     {
-        private readonly ConcurrentDictionary<int, object>
-            _screenResolversMap = new ConcurrentDictionary<int, object>();
+        private readonly ConcurrentDictionary<int, IScreenResolver>
+            _screenResolversMap = new ConcurrentDictionary<int, IScreenResolver>();
 
         public bool IsEmpty => _screenResolversMap.IsEmpty;
 
-        public void Register<TScreen>(IScreenResolver<TScreen> resolver) where TScreen : Screen
+        public void Register<TScreen>(IScreenResolver resolver) where TScreen : Screen
         {
             var screenTypeHash = typeof(TScreen).GetHashCode();
             _screenResolversMap.TryAdd(screenTypeHash, resolver);
@@ -21,13 +21,12 @@ namespace Spx.Navix
             return _screenResolversMap.ContainsKey(screenTypeHash);
         }
 
-        public IScreenResolver<TScreen>? Resolve<TScreen>() where TScreen : Screen
+        public IScreenResolver? Resolve<TScreen>() where TScreen : Screen
         {
             var screenTypeHash = typeof(TScreen).GetHashCode();
-            if (_screenResolversMap.TryGetValue(screenTypeHash, out var resolver))
-                return (IScreenResolver<TScreen>) resolver;
-            else
-                return null;
+            return _screenResolversMap.TryGetValue(screenTypeHash, out var resolver) 
+                ? resolver 
+                : null;
         }
     }
 }
