@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D348FD64
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navix.UnitTests", "tests\Navix.UnitTests\Navix.UnitTests.csproj", "{03526F19-F955-4E56-B577-14BEDE5C51A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prototype", "prototype", "{8A106079-64FB-4F72-8BD9-2D35390B3BEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavixPrototype", "prototype\NavixPrototype\NavixPrototype.csproj", "{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,9 +52,22 @@ Global
 		{03526F19-F955-4E56-B577-14BEDE5C51A2}.Release|x64.Build.0 = Release|Any CPU
 		{03526F19-F955-4E56-B577-14BEDE5C51A2}.Release|x86.ActiveCfg = Release|Any CPU
 		{03526F19-F955-4E56-B577-14BEDE5C51A2}.Release|x86.Build.0 = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|x64.Build.0 = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Debug|x86.Build.0 = Debug|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|x64.Build.0 = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{68E8930F-1EE0-4FDA-A65D-C7364D2C263C} = {7DFFBB0F-504F-448A-8B61-7E0C14D5B02A}
 		{03526F19-F955-4E56-B577-14BEDE5C51A2} = {D348FD64-4C56-4543-862B-FBEB7DF1F6FE}
+		{B1893CDB-5746-49A9-ABD2-FB5AE4A4854B} = {8A106079-64FB-4F72-8BD9-2D35390B3BEF}
 	EndGlobalSection
 EndGlobal
