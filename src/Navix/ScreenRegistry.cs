@@ -2,7 +2,7 @@
 
 namespace Spx.Navix
 {
-    public class ScreenRegistry
+    public class ScreenRegistry: IScreenRegistry
     {
         private readonly ConcurrentDictionary<int, object>
             _screenResolversMap = new ConcurrentDictionary<int, object>();
