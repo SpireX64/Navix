@@ -5,7 +5,7 @@ namespace Spx.Navix
     public class NavixService
     {
         private bool _initialized = false;
-        private ScreenRegistry _registry = new ScreenRegistry();
+        private readonly ScreenRegistry _registry = new ScreenRegistry();
 
         private Router? _router = null;
 
@@ -21,7 +21,7 @@ namespace Spx.Navix
 
             config.ConfigureScreens(_registry);
             
-            _router = new Router();
+            _router = new Router(_registry);
             
             _initialized = true;
         }

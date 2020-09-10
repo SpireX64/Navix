@@ -1,4 +1,5 @@
 ﻿using System;
+using Spx.Navix.Commands;
 
 namespace Spx.Navix
 {
@@ -15,6 +16,11 @@ namespace Spx.Navix
         public void RemoveNavigator()
         {
             _navigator = null;
+        }
+
+        public void ExecuteCommand(INavigationCommand command)
+        {
+            
         }
     }
 }
