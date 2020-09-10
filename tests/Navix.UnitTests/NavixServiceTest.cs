@@ -57,5 +57,47 @@ namespace Spx.Navix.UnitTests
             Assert.Throws<InvalidOperationException>(
                 () => navix.Initialize(configMock.Object));
         }
+
+        [Fact]
+        public void NavixService_GetRouterWithoutInit_ThrowsInvalidOperation()
+        {
+            // -- Arrange:
+            var navix = new NavixService();
+            
+            // -- Act & Assert:
+            Assert.Throws<InvalidOperationException>(
+                () => navix.GetRouter());
+        }
+
+        [Fact]
+        public void NavixService_GetRouterAfterInit()
+        {
+            // -- Arrange:
+            var configMock = new Mock<INavixConfig>();
+            var navix = new NavixService();
+            navix.Initialize(configMock.Object);
+            
+            // -- Act:
+            var router = navix.GetRouter();
+            
+            // -- Assert:
+            Assert.NotNull(router);
+        }
+
+        [Fact]
+        public void NavixService_GetRouterTwice_RoutersAreSame()
+        {
+            // -- Arrange:
+            var configMock = new Mock<INavixConfig>();
+            var navix = new NavixService();
+            navix.Initialize(configMock.Object);
+            
+            // -- Act:
+            var router1 = navix.GetRouter();
+            var router2 = navix.GetRouter();
+            
+            // -- Assert:
+            Assert.Equal(router1, router2);
+        }
     }
 }

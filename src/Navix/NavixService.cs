@@ -7,6 +7,8 @@ namespace Spx.Navix
         private bool _initialized = false;
         private ScreenRegistry _registry = new ScreenRegistry();
 
+        private Router? _router = null;
+
         public bool IsInitialized => _initialized;
 
         public void Initialize(INavixConfig config)
@@ -19,7 +21,17 @@ namespace Spx.Navix
 
             config.ConfigureScreens(_registry);
             
+            _router = new Router();
+            
             _initialized = true;
+        }
+
+        public Router GetRouter()
+        {
+            if (!_initialized)
+                throw new InvalidOperationException();
+
+            return _router!;
         }
     }
 }
