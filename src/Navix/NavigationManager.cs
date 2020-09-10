@@ -4,12 +4,15 @@ using Spx.Navix.Commands;
 
 namespace Spx.Navix
 {
-    public class NavigationManager: INavigatorHolder
+    public class NavigationManager : INavigatorHolder
     {
         private volatile Navigator? _navigator = null;
-        private ConcurrentQueue<INavigationCommand> _pendingCommands = new ConcurrentQueue<INavigationCommand>();
+
+        private readonly ConcurrentQueue<INavigationCommand> _pendingCommands =
+            new ConcurrentQueue<INavigationCommand>();
 
         public Navigator? Navigator => _navigator;
+
         public void SetNavigator(Navigator navigator)
         {
             _navigator = navigator ?? throw new ArgumentNullException(nameof(navigator));
@@ -33,18 +36,27 @@ namespace Spx.Navix
             switch (command)
             {
                 case ForwardNavCommand forwardNavCommand:
+                    _navigator!.OnForward(
+                        forwardNavCommand.Screen,
+                        forwardNavCommand.Resolver);
                     break;
-                
+
                 case ReplaceNavCommand replaceNavCommand:
+                    _navigator!.OnReplace(
+                        replaceNavCommand.Screen,
+                        replaceNavCommand.Resolver);
                     break;
-                
-                case BackNavCommand backNavCommand:
+
+                case BackNavCommand _:
+                    _navigator!.OnBack();
                     break;
-                    
+
                 case BackToNavCommand backToNavCommand:
+                    _navigator!.OnBackTo(backToNavCommand.ScreenType);
                     break;
-                
-                case BackToRootNavCommand backToRootNavCommand:
+
+                case BackToRootNavCommand _:
+                    _navigator!.OnBackToRoot();
                     break;
             }
         }
