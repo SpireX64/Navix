@@ -43,6 +43,22 @@ namespace Spx.Navix.UnitTests
             Assert.Null(registry.Resolve<ScreenStub1>());
         }
 
+        [Fact]
+        public void ScreenRegistry_RegisterScreenWithProps_ScreenRegistered()
+        {
+            // -- Arrange:
+            var registry = new ScreenRegistry();
+            var resolver = new ScreenStubWithPropsResolver();
+            
+            // -- Act:
+            registry.Register<ScreenStubWithProps>(resolver);
+            
+            // -- Assert:
+            Assert.False(registry.IsEmpty);
+            Assert.True(registry.HasScreen<ScreenStubWithProps>());
+            Assert.Equal(resolver, registry.Resolve<ScreenStubWithProps>());
+        }
+
         // -- Arrange:
         // -- Act:
         // -- Assert:
