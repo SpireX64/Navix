@@ -4,14 +4,4 @@
     {
         
     }
-
-    public abstract class Screen<TProps>: Screen
-    {
-        public TProps Props { get; }
-
-        public Screen(TProps props)
-        {
-            Props = props;
-        }
-    }
 }
