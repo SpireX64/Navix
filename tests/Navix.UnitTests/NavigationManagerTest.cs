@@ -199,5 +199,28 @@ namespace Spx.Navix.UnitTests
                 e => e.OnBackToRoot(),
                 Times.Once);
         }
+
+        [Fact]
+        public void NavigationManager_RemoveNavigatorOnCommandApply_PauseCommandQueue()
+        {
+            // -- Arrange:
+            var mng = new NavigationManager();
+            var navigatorMock = new Mock<Navigator>();
+            navigatorMock
+                .Setup(e => e.OnBack())
+                .Callback(() => mng.RemoveNavigator());
+            var navigator = navigatorMock.Object;
+            
+            // -- Act:
+            mng.SendCommand(new BackNavCommand());
+            mng.SendCommand(new BackToRootNavCommand());
+            
+            mng.SetNavigator(navigator);
+            
+            // -- Assert:
+            Assert.True(mng.HasPendingCommands);
+            navigatorMock.Verify(e => e.OnBack(), Times.Once);
+            navigatorMock.Verify(e => e.OnBackToRoot(), Times.Never);
+        }
     }
 }

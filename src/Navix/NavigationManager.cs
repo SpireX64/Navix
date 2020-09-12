@@ -6,8 +6,7 @@ namespace Spx.Navix
 {
     public class NavigationManager : INavigatorHolder
     {
-        private readonly object _navigatorLocker = new object();
-        private Navigator? _navigator = null;
+        private volatile Navigator? _navigator = null;
 
         private readonly ConcurrentQueue<INavigationCommand> _pendingCommands =
             new ConcurrentQueue<INavigationCommand>();
@@ -18,23 +17,20 @@ namespace Spx.Navix
 
         public void SetNavigator(Navigator navigator)
         {
-            lock (_navigatorLocker)
-            {
                 _navigator = navigator ?? throw new ArgumentNullException(nameof(navigator));
                 while (!_pendingCommands.IsEmpty)
                 {
+                    if (_navigator is null) break;
                     if (_pendingCommands.TryDequeue(out var command))
+                    {
                         ApplyCommand(command);
+                    }
                 }
-            }
         }
 
         public void RemoveNavigator()
         {
-            lock (_navigatorLocker)
-            {
-                _navigator = null;
-            }
+            _navigator = null;
         }
 
         public void SendCommand(INavigationCommand command)
