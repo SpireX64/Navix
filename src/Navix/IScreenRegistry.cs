@@ -1,4 +1,5 @@
-﻿using Spx.Reflection;
+﻿using Spx.Navix.Platform;
+using Spx.Reflection;
 
 namespace Spx.Navix
 {

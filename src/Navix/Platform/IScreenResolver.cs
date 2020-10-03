@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix
+﻿namespace Spx.Navix.Platform
 {
     public interface IScreenResolver
     {
