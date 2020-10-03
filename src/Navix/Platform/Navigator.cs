@@ -4,9 +4,11 @@ namespace Spx.Navix.Platform
 {
     public abstract class Navigator<TResolver> where TResolver: IScreenResolver
     {
+        public abstract NavigatorSpec Specification { get; }
+        
         public virtual void Forward(Screen screen, TResolver resolver)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException();
         }
 
         public virtual void Back()
@@ -26,7 +28,6 @@ namespace Spx.Navix.Platform
 
         public virtual void Update(Screen screen)
         {
-            throw new NotSupportedException();
         }
     }
 }
