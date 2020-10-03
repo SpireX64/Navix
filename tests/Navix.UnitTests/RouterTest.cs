@@ -30,7 +30,7 @@ namespace Spx.Navix.UnitTests
             
             // -- Act & Assert:
             Assert.Throws<NullReferenceException>(
-                () => router.NavigateTo<Screen>(null!));
+                () => router.NavigateTo(null!));
         }
 
         [Fact]
@@ -50,9 +50,10 @@ namespace Spx.Navix.UnitTests
         [Fact]
         public void Router_NavigateToScreen_NoThrow()
         {
+
             // -- Arrange:
             var registry = new ScreenRegistry();
-            registry.Register<ScreenStub1>(new ScreenResolverStub1());
+            registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
 
             var router = new Router(registry);
             var screen = new ScreenStub1();
@@ -73,7 +74,7 @@ namespace Spx.Navix.UnitTests
             
             // -- Act & Assert:
             Assert.Throws<NullReferenceException>(
-                () => router.Replace<Screen>(null!));
+                () => router.Replace(null!));
         }
 
         [Fact]
@@ -95,7 +96,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            registry.Register<ScreenStub1>(new ScreenResolverStub1());
+            registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
             
             var router = new Router(registry);
             var screen = new ScreenStub1();
@@ -115,7 +116,7 @@ namespace Spx.Navix.UnitTests
             var router = new Router(registry);
             
             // Act:
-            router.BackTo<ScreenStub1>();
+            router.BackTo(typeof(ScreenStub1));
             
             // Assert:
             // no-throw

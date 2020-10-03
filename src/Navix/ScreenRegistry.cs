@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Spx.Reflection;
 
 namespace Spx.Navix
 {
@@ -9,22 +10,22 @@ namespace Spx.Navix
 
         public bool IsEmpty => _screenResolversMap.IsEmpty;
 
-        public void Register<TScreen>(IScreenResolver resolver) where TScreen : Screen
+        public void Register(Class<Screen> screenClass, IScreenResolver resolver)
         {
-            var screenTypeHash = typeof(TScreen).GetHashCode();
-            _screenResolversMap.TryAdd(screenTypeHash, resolver);
+            var typeHash = screenClass.GetHashCode();
+            _screenResolversMap.TryAdd(typeHash, resolver);
         }
 
-        public bool HasScreen<TScreen>() where TScreen : Screen
+        public bool HasScreen(Class<Screen> screenClass)
         {
-            var screenTypeHash = typeof(TScreen).GetHashCode();
-            return _screenResolversMap.ContainsKey(screenTypeHash);
+            var typeHash = screenClass.GetHashCode();
+            return _screenResolversMap.ContainsKey(typeHash);
         }
 
-        public IScreenResolver? Resolve<TScreen>() where TScreen : Screen
+        public IScreenResolver? Resolve(Class<Screen> screenClass)
         {
-            var screenTypeHash = typeof(TScreen).GetHashCode();
-            return _screenResolversMap.TryGetValue(screenTypeHash, out var resolver) 
+            var typeHash = screenClass.GetHashCode();
+            return _screenResolversMap.TryGetValue(typeHash, out var resolver) 
                 ? resolver 
                 : null;
         }

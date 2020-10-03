@@ -10,7 +10,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            
+
             // -- Assert:
             Assert.True(registry.IsEmpty);
         }
@@ -21,14 +21,15 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var registry = new ScreenRegistry();
             var screenResolver = new ScreenResolverStub1();
-            
+            var screenType = typeof(ScreenStub1);
+
             // -- Act:
-            registry.Register<ScreenStub1>(screenResolver);
+            registry.Register(screenType, screenResolver);
 
             // -- Assert:
             Assert.False(registry.IsEmpty);
-            Assert.True(registry.HasScreen<ScreenStub1>());
-            Assert.Equal(screenResolver, registry.Resolve<ScreenStub1>());
+            Assert.True(registry.HasScreen(screenType));
+            Assert.Equal(screenResolver, registry.Resolve(screenType));
         }
 
         [Fact]
@@ -36,11 +37,12 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            
+            var screenType = typeof(ScreenStub1);
+
             // -- Assert:
             Assert.True(registry.IsEmpty);
-            Assert.False(registry.HasScreen<ScreenStub1>());
-            Assert.Null(registry.Resolve<ScreenStub1>());
+            Assert.False(registry.HasScreen(screenType));
+            Assert.Null(registry.Resolve(screenType));
         }
 
         // -- Arrange:

@@ -1,14 +1,16 @@
-﻿namespace Spx.Navix
+﻿using Spx.Reflection;
+
+namespace Spx.Navix
 {
     public interface IRouter
     {
-        void NavigateTo<TScreen>(TScreen screen) where TScreen : Screen;
+        void NavigateTo(Screen screen);
 
-        void Replace<TScreen>(TScreen screen) where TScreen : Screen;
+        void Replace(Screen screen);
         
         void Back();
 
-        void BackTo<TScreen>() where TScreen : Screen;
+        void BackTo(Class<Screen> screenClass);
 
         void BackToRoot();
     }
