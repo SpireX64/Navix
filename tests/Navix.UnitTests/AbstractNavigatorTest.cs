@@ -6,7 +6,7 @@ namespace Spx.Navix.UnitTests
 {
     public class AbstractNavigatorTest
     {
-        private class AbstractNavigator : Navigator<IScreenResolver>
+        private class AbstractNavigator : Navigator
         {
             public override NavigatorSpec Specification { get; } = new NavigatorSpec();
         }
