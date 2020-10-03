@@ -1,4 +1,5 @@
 ﻿using System;
+using Spx.Reflection;
 
 namespace Spx.Navix.Commands
 {
@@ -6,13 +7,7 @@ namespace Spx.Navix.Commands
     {
         public Type ScreenType { get; }
 
-        public static BackToNavCommand For<TScreen>() where TScreen: Screen
-        {
-            var type = typeof(TScreen);
-            return new BackToNavCommand(type);
-        }
-
-        public BackToNavCommand(Type screenType)
+        public BackToNavCommand(Class<Screen> screenType)
         {
             ScreenType = screenType;
         }

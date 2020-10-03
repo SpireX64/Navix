@@ -1,6 +1,7 @@
 ﻿using System;
 using Spx.Navix.Commands;
 using Spx.Navix.Exceptions;
+using Spx.Reflection;
 
 namespace Spx.Navix
 {
@@ -17,18 +18,19 @@ namespace Spx.Navix
             _manager = new NavigationManager();
         }
 
-        private IScreenResolver TryGetScreenResolver<TScreen>(TScreen screen) where TScreen : Screen
+        private IScreenResolver TryGetScreenResolver(Screen screen)
         {
             if (screen == null)
                 throw new NullReferenceException("Given screen is null");
-            
-            var resolver = _screenRegistry.Resolve<TScreen>()
+
+            var screenType = screen.GetType();
+            var resolver = _screenRegistry.Resolve(screenType)
                            ?? throw new UnregisteredScreenException(screen);
 
             return resolver;
         }
 
-        public void NavigateTo<TScreen>(TScreen screen) where TScreen : Screen
+        public void NavigateTo(Screen screen)
         {
             var resolver = TryGetScreenResolver(screen);
             var command = new ForwardNavCommand(screen, resolver);
@@ -36,7 +38,7 @@ namespace Spx.Navix
             _manager.SendCommand(command);
         }
 
-        public void Replace<TScreen>(TScreen screen) where TScreen : Screen
+        public void Replace(Screen screen)
         {
             var resolver = TryGetScreenResolver(screen);
             var command = new ReplaceNavCommand(screen, resolver);
@@ -50,9 +52,9 @@ namespace Spx.Navix
             _manager.SendCommand(command);
         }
 
-        public void BackTo<TScreen>() where TScreen : Screen
+        public void BackTo(Class<Screen> screenClass)
         {
-            var command = BackToNavCommand.For<TScreen>();
+            var command = new BackToNavCommand(screenClass);
             _manager.SendCommand(command);
         }
 
