@@ -5,6 +5,7 @@ namespace Spx.Navix
 {
     public interface INavigationManager
     {
-        void SendCommands(ICollection<INavCommand> navCommands);
+        public bool HasPendingCommands { get; }
+        public void SendCommands(IEnumerable<INavCommand> navCommands);
     }
 }
