@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Moq;
-using Spx.Navix.Commands;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Internal;
+using Spx.Navix.Internal.Defaults;
 using Xunit;
 
 namespace Spx.Navix.UnitTests

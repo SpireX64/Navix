@@ -1,5 +1,4 @@
 ﻿using System;
-using Spx.Navix.Platform;
 using Xunit;
 
 namespace Spx.Navix.UnitTests

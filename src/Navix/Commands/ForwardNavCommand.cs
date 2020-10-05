@@ -1,4 +1,4 @@
-﻿using Spx.Navix.Platform;
+﻿using Spx.Navix.Abstractions;
 
 namespace Spx.Navix.Commands
 {

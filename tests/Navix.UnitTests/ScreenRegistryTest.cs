@@ -1,4 +1,5 @@
 ﻿using Spx.Navix.Exceptions;
+using Spx.Navix.Internal;
 using Spx.Navix.UnitTests.Stubs;
 using Spx.Reflection;
 using Xunit;

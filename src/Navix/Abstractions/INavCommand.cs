@@ -1,6 +1,4 @@
-﻿using Spx.Navix.Platform;
-
-namespace Spx.Navix.Commands
+﻿namespace Spx.Navix.Abstractions
 {
     public interface INavCommand
     {

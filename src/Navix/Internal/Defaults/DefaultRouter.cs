@@ -1,9 +1,10 @@
 ﻿using System;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Commands;
 
-namespace Spx.Navix.Internal
+namespace Spx.Navix.Internal.Defaults
 {
-    public class DefaultRouter: IRouter
+    internal class DefaultRouter: IRouter
     {
         private readonly INavigationManager _navigationManager;
         private readonly ICommandsFactory _commandsFactory;

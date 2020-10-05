@@ -1,9 +1,10 @@
 ﻿using System;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Internal;
 
 namespace Spx.Navix
 {
-    public class NavixService
+    public sealed class NavixService
     {
         private readonly ScreenRegistry _registry = new ScreenRegistry();
         private readonly NavigationManager _navigationManager;

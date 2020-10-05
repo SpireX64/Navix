@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Commands;
-using Spx.Navix.Platform;
 
 namespace Spx.Navix.Internal
 {
-    public class NavigationManager: INavigationManager, INavigatorHolder
+    internal sealed class NavigationManager: INavigationManager, INavigatorHolder
     {
         private readonly ConcurrentQueue<INavCommand> _pendingCommands = new ConcurrentQueue<INavCommand>();
 

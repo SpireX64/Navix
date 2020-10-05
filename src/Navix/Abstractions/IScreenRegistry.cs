@@ -1,7 +1,6 @@
-﻿using Spx.Navix.Platform;
-using Spx.Reflection;
+﻿using Spx.Reflection;
 
-namespace Spx.Navix
+namespace Spx.Navix.Abstractions
 {
     public interface IScreenRegistry
     {

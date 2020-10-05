@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Spx.Navix.Platform
+namespace Spx.Navix
 {
     public abstract class Navigator
     {

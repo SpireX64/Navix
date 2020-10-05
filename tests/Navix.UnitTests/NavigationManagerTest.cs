@@ -1,7 +1,6 @@
 ﻿using Moq;
-using Spx.Navix.Commands;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Internal;
-using Spx.Navix.Platform;
 using Xunit;
 
 namespace Spx.Navix.UnitTests

@@ -1,6 +1,4 @@
-﻿using Spx.Navix.Platform;
-
-namespace Spx.Navix
+﻿namespace Spx.Navix.Abstractions
 {
     public interface INavigatorHolder
     {

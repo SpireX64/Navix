@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Spx.Navix.Abstractions;
 using Spx.Navix.Commands;
-using Spx.Navix.Exceptions;
 
-namespace Spx.Navix.Internal
+namespace Spx.Navix.Internal.Defaults
 {
-    public sealed class CommandsFactory : ICommandsFactory
+    internal sealed class CommandsFactory : ICommandsFactory
     {
         private readonly IScreenRegistry _registry;
 

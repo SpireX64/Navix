@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Spx.Navix.Platform;
+using Spx.Navix.Commands;
 
-namespace Spx.Navix.Commands
+namespace Spx.Navix.Abstractions
 {
     public interface ICommandsFactory
     {
