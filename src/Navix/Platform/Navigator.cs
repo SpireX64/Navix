@@ -13,19 +13,5 @@ namespace Spx.Navix.Platform
         {
             throw new NotSupportedException();
         }
-
-        public virtual void BackTo(Screen screen)
-        {
-            throw new NotSupportedException();
-        }
-
-        public virtual void BackToRoot()
-        {
-            throw new NotSupportedException();
-        }
-
-        public virtual void Update(Screen screen)
-        {
-        }
     }
 }
