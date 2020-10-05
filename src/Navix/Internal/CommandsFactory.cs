@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using Spx.Navix.Commands;
 using Spx.Navix.Exceptions;
-using Spx.Navix.Platform;
 
 namespace Spx.Navix.Internal
 {
-    public sealed class CommandsFactory: ICommandsFactory
+    public sealed class CommandsFactory : ICommandsFactory
     {
         private readonly IScreenRegistry _registry;
 
@@ -15,7 +14,7 @@ namespace Spx.Navix.Internal
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
 
-        public ICollection<INavCommand> Forward(NavigatorSpec spec, Screen screen)
+        public ICollection<INavCommand> Forward(Screen screen)
         {
             var resolver = _registry.Resolve(screen.GetType())
                            ?? throw new UnregisteredScreenException(screen);
@@ -24,7 +23,7 @@ namespace Spx.Navix.Internal
             return new[] {command};
         }
 
-        public ICollection<INavCommand> Back(NavigatorSpec spec)
+        public ICollection<INavCommand> Back()
         {
             var command = new BackNavCommand();
             return new[] {command};

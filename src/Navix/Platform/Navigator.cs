@@ -4,8 +4,6 @@ namespace Spx.Navix.Platform
 {
     public abstract class Navigator
     {
-        public abstract NavigatorSpec Specification { get; }
-        
         public virtual void Forward(Screen screen, IScreenResolver resolver)
         {
             throw new NotImplementedException();

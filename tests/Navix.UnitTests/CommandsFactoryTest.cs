@@ -3,7 +3,6 @@ using System.Linq;
 using Moq;
 using Spx.Navix.Commands;
 using Spx.Navix.Internal;
-using Spx.Navix.Platform;
 using Spx.Navix.UnitTests.Stubs;
 using Spx.Reflection;
 using Xunit;
@@ -39,7 +38,6 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var screen = new ScreenStub1();
             var screenClass = Class<ScreenStub1>.Get();
-            var navspec = new NavigatorSpec();
             var registryMock = new Mock<IScreenRegistry>();
             registryMock.Setup(e => e.Resolve(screenClass.Type))
                 .Returns((Class<Screen> _) => new ScreenResolverStub1());
@@ -47,10 +45,10 @@ namespace Spx.Navix.UnitTests
             var factory = new CommandsFactory(registryMock.Object);
 
             // -- Act:
-            var commands = factory.Forward(navspec, screen);
+            var commands = factory.Forward(screen);
             
             // -- Assert:
-            registryMock.Verify(e => e.Resolve(screenClass.Type));
+            registryMock.Verify(e => e.Resolve(screenClass.Type), Times.Once);
             
             Assert.NotNull(commands);
             Assert.Single(commands);
@@ -64,11 +62,10 @@ namespace Spx.Navix.UnitTests
         public void CommandsFactory_TryCreateBackCommand_CommandCreated()
         {
             // -- Arrange:
-            var navspec = new NavigatorSpec();
             var factory = new CommandsFactory(new ScreenRegistry());
             
             // -- Act:
-            var commands = factory.Back(navspec);
+            var commands = factory.Back();
             
             // -- Assert:
             Assert.NotNull(commands);

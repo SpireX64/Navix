@@ -6,10 +6,7 @@ namespace Spx.Navix.UnitTests
 {
     public class AbstractNavigatorTest
     {
-        private class AbstractNavigator : Navigator
-        {
-            public override NavigatorSpec Specification { get; } = new NavigatorSpec();
-        }
+        private class AbstractNavigator : Navigator {}
 
         [Fact]
         public void Navigator_TryForward_ThrowsNotImpl()
@@ -63,19 +60,6 @@ namespace Spx.Navix.UnitTests
 
             // -- Act & Assert:
             navigator.Update(null!);
-        }
-
-        [Fact]
-        public void Navigator_CheckDefaultSpec_AllFalse()
-        {
-            // -- Arrange:
-            var navigator = new AbstractNavigator();
-            var spec = navigator.Specification;
-
-            // -- Assert:
-            Assert.False(spec.BackSupport);
-            Assert.False(spec.BackToSupport);
-            Assert.False(spec.BackToRootSupport);
         }
     }
 }
