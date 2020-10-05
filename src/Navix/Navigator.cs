@@ -4,10 +4,14 @@ namespace Spx.Navix
 {
     public abstract class Navigator
     {
-        public abstract void OnForward(Screen screen, IScreenResolver resolver);
-        public abstract void OnReplace(Screen screen, IScreenResolver resolver);
-        public abstract void OnBack();
-        public abstract void OnBackTo(Type screenType);
-        public abstract void OnBackToRoot();
+        public virtual void Forward(Screen screen, IScreenResolver resolver)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void Back()
+        {
+            throw new NotSupportedException();
+        }
     }
 }

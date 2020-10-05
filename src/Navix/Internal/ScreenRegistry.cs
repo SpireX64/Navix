@@ -1,9 +1,11 @@
 ﻿using System.Collections.Concurrent;
+using Spx.Navix.Abstractions;
+using Spx.Navix.Exceptions;
 using Spx.Reflection;
 
-namespace Spx.Navix
+namespace Spx.Navix.Internal
 {
-    public class ScreenRegistry: IScreenRegistry
+    internal sealed class ScreenRegistry: IScreenRegistry
     {
         private readonly ConcurrentDictionary<int, IScreenResolver>
             _screenResolversMap = new ConcurrentDictionary<int, IScreenResolver>();
@@ -22,12 +24,12 @@ namespace Spx.Navix
             return _screenResolversMap.ContainsKey(typeHash);
         }
 
-        public IScreenResolver? Resolve(Class<Screen> screenClass)
+        public IScreenResolver Resolve(Screen screen)
         {
-            var typeHash = screenClass.GetHashCode();
+            var typeHash = screen.GetType().GetHashCode();
             return _screenResolversMap.TryGetValue(typeHash, out var resolver) 
                 ? resolver 
-                : null;
+                : throw new UnregisteredScreenException(screen);
         }
     }
 }

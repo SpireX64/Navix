@@ -1,6 +1,12 @@
-﻿namespace Spx.Navix.Commands
+﻿using Spx.Navix.Abstractions;
+
+namespace Spx.Navix.Commands
 {
-    public readonly struct BackNavCommand: INavigationCommand
+    public sealed class BackNavCommand : INavCommand
     {
+        public void Apply(Navigator navigator)
+        {
+            navigator.Back();
+        }
     }
 }

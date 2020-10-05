@@ -7,6 +7,7 @@ namespace Spx.Navix.Exceptions
         public Screen Screen { get; }
 
         public UnregisteredScreenException(Screen screen)
+            : base($"Attempt navigate to unregistered screen '{screen.GetType().FullName}'!")
         {
             Screen = screen;
         }

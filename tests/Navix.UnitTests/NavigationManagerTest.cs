@@ -1,7 +1,6 @@
-﻿using System;
-using Moq;
-using Spx.Navix.Commands;
-using Spx.Navix.UnitTests.Stubs;
+﻿using Moq;
+using Spx.Navix.Abstractions;
+using Spx.Navix.Internal;
 using Xunit;
 
 namespace Spx.Navix.UnitTests
@@ -9,218 +8,156 @@ namespace Spx.Navix.UnitTests
     public class NavigationManagerTest
     {
         [Fact]
-        public void NavigatorManager_TryGetNavigator_NavigatorIsNull()
+        public void NavigationManager_SetNavigator_NavigatorApplied()
         {
             // -- Arrange:
-            var mng = new NavigationManager();
-            
-            // -- Assert:
-            Assert.Null(mng.Navigator);
-            Assert.False(mng.HasPendingCommands);
-        }
-        
-        [Fact]
-        public void NavigationManager_SetNavigator_NavigatorNotNull()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
+            var navigatorFake = new Mock<Navigator>().Object;
+            var manager = new NavigationManager();
             
             // -- Act:
-            mng.SetNavigator(navigator);
+            manager.SetNavigator(navigatorFake);
             
             // -- Assert:
-            Assert.False(mng.HasPendingCommands);
-            Assert.NotNull(mng.Navigator);
-            Assert.Equal(navigator, mng.Navigator);
+            Assert.NotNull(manager.Navigator);
+            Assert.Equal(navigatorFake, manager.Navigator);
         }
 
         [Fact]
-        public void NavigationManager_SetNullNavigator_ThrowsArgumentNull()
+        public void NavigatorManager_RemoveNavigator_NavigatorRemoved()
         {
             // -- Arrange:
-            var mng = new NavigationManager();
+            var navigatorFake = new Mock<Navigator>().Object;
+            var manager = new NavigationManager();
+            manager.SetNavigator(navigatorFake);
             
-            // -- Act & Assert:
-            Assert.Throws<ArgumentNullException>(
-                () => mng.SetNavigator(null!));
+            // -- Act:
+            manager.RemoveNavigator();
+            
+            // -- Assert:
+            Assert.Null(manager.Navigator);
         }
 
         [Fact]
-        public void NavigationManager_RemoveNavigator_NavigatorIsNullAfterRemove()
+        public void NavigatorManager_CreateInstance_NoPendingCommandsAndNavigator()
         {
             // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            // -- Act:
-            mng.RemoveNavigator();
+            var manager = new NavigationManager();
             
             // -- Assert:
-            Assert.Null(mng.Navigator);
+            Assert.Null(manager.Navigator);
+            Assert.False(manager.HasPendingCommands);
         }
 
         [Fact]
-        public void NavigationManager_SendForwardNavCommand_NavigatorOnForwardCalled()
+        public void NavigatorManager_SendCommandsWithoutNavigator()
         {
             // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            var command = new ForwardNavCommand(new ScreenStub1(), new ScreenResolverStub1());
+            var commandMock = new Mock<INavCommand>();
+            var commands = new[] { commandMock.Object };
+            var manager = new NavigationManager();
             
             // -- Act:
-            mng.SendCommand(command);
-            
-            // -- Assert:
-            navigatorMock.Verify(
-                e => e.OnForward(command.Screen, command.Resolver), 
-                Times.Once);
-        }
-        
-        [Fact]
-        public void NavigationManager_SendReplaceNavCommand_NavigatorOnReplaceCalled()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            var command = new ReplaceNavCommand(new ScreenStub1(), new ScreenResolverStub1());
-            
-            // -- Act:
-            mng.SendCommand(command);
-            
-            // -- Assert:
-            navigatorMock.Verify(
-                e => e.OnReplace(command.Screen, command.Resolver), 
-                Times.Once);
-        }
-        
-        [Fact]
-        public void NavigationManager_SendBackNavCommand_NavigatorOnBackCalled()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            var command = new BackNavCommand();
-            
-            // -- Act:
-            mng.SendCommand(command);
-            
-            // -- Assert:
-            navigatorMock.Verify(
-                e => e.OnBack(), 
-                Times.Once);
-        }
-        
-        [Fact]
-        public void NavigationManager_SendBackToNavCommand_NavigatorOnBackToCalled()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            var command = new BackToNavCommand(typeof(ScreenStub1));
-            
-            // -- Act:
-            mng.SendCommand(command);
-            
-            // -- Assert:
-            navigatorMock.Verify(
-                e => e.OnBackTo(command.ScreenType), 
-                Times.Once);
-        }
-        
-        [Fact]
-        public void NavigationManager_SendBackToRootNavCommand_NavigatorOnBackToRootCalled()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            mng.SetNavigator(navigator);
-            
-            var command = new BackToRootNavCommand();
-            
-            // -- Act:
-            mng.SendCommand(command);
-            
-            // -- Assert:
-            navigatorMock.Verify(
-                e => e.OnBackToRoot(),
-                Times.Once);
-        }
-
-        [Fact]
-        public void NavigationManager_SendCommandWithoutNavigator_CommandIsPending()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            
-            // -- Act:
-            mng.SendCommand(new BackNavCommand());
-            
-            // -- Assert:
-            Assert.True(mng.HasPendingCommands);
-        }
-
-        [Fact]
-        public void NavigationManager_WithPendingCommandsSetNavigator_CommandsWasApplied()
-        {
-            // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            var navigator = navigatorMock.Object;
-            
-            mng.SendCommand(new BackNavCommand());
-            mng.SendCommand(new BackToRootNavCommand());
-            
-            // -- Act:
-            mng.SetNavigator(navigator);
+            manager.SendCommands(commands);
             
             // -- Assert
-            Assert.False(mng.HasPendingCommands);
-            navigatorMock.Verify(
-                e => e.OnBack(), 
-                Times.Once);
-            navigatorMock.Verify(
-                e => e.OnBackToRoot(),
-                Times.Once);
+            Assert.True(manager.HasPendingCommands);
+            commandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
         }
 
         [Fact]
-        public void NavigationManager_RemoveNavigatorOnCommandApply_PauseCommandQueue()
+        public void NavigationManager_SendCommandsWithNavigator()
         {
             // -- Arrange:
-            var mng = new NavigationManager();
-            var navigatorMock = new Mock<Navigator>();
-            navigatorMock
-                .Setup(e => e.OnBack())
-                .Callback(() => mng.RemoveNavigator());
-            var navigator = navigatorMock.Object;
+            var commandMock = new Mock<INavCommand>();
+            var commands = new[] { commandMock.Object };
+            var navigatorStub = new Mock<Navigator>().Object;
+            
+            var manager = new NavigationManager();
+            manager.SetNavigator(navigatorStub);
             
             // -- Act:
-            mng.SendCommand(new BackNavCommand());
-            mng.SendCommand(new BackToRootNavCommand());
+            manager.SendCommands(commands);
             
-            mng.SetNavigator(navigator);
+            // -- Arrange:
+            Assert.False(manager.HasPendingCommands);
+            commandMock.Verify(
+                e => e.Apply(navigatorStub), Times.Once);
+        }
+
+        [Fact]
+        public void NavigationManager_SetNavigatorAfterSendCommands_ApplyPendingCommands()
+        {
+            // -- Arrange:
+            var commandMock = new Mock<INavCommand>();
+            var commands = new[] { commandMock.Object };
+            var navigatorStub = new Mock<Navigator>().Object;
+            
+            var manager = new NavigationManager();
+            
+            // -- Act:
+            manager.SendCommands(commands);
+            manager.SetNavigator(navigatorStub);
             
             // -- Assert:
-            Assert.True(mng.HasPendingCommands);
-            navigatorMock.Verify(e => e.OnBack(), Times.Once);
-            navigatorMock.Verify(e => e.OnBackToRoot(), Times.Never);
+            Assert.False(manager.HasPendingCommands);
+            commandMock.Verify(
+                e => e.Apply(navigatorStub), Times.Once);
+        }
+
+        [Fact]
+        public void NavigationManager_RemoveNavigatorOnSendCommands_PendingCommand()
+        {
+            // -- Arrange:
+            var manager = new NavigationManager();
+            
+            var pendingCommandMock = new Mock<INavCommand>();
+            var removeNavigatorCommandMock = new Mock<INavCommand>();
+            removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
+                .Callback<Navigator>((navigator) => { manager.RemoveNavigator(); });
+            
+            var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
+            var navigatorStub = new Mock<Navigator>().Object;
+            manager.SetNavigator(navigatorStub);
+
+            // -- Act:
+            manager.SendCommands(commands);
+            
+            // -- Assert:
+            Assert.Null(manager.Navigator);
+            Assert.True(manager.HasPendingCommands);
+            removeNavigatorCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Once);
+            pendingCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
+        }
+
+        [Fact]
+        public void NavigationManager_RemoveNavigatorOnApplyPendingCommand_BreakApplying()
+        {
+            // -- Arrange:
+            var manager = new NavigationManager();
+            
+            var removeNavigatorCommandMock = new Mock<INavCommand>();
+            var pendingCommandMock = new Mock<INavCommand>();
+            removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
+                .Callback<Navigator>((navigator) => { manager.RemoveNavigator(); });
+            var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
+            
+            var navigatorStub = new Mock<Navigator>().Object;
+            
+            manager.SendCommands(commands);
+            
+            // -- Act:
+            manager.SetNavigator(navigatorStub);
+            
+            // -- Assert:
+            Assert.Null(manager.Navigator);
+            Assert.True(manager.HasPendingCommands);
+            removeNavigatorCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Once);
+            pendingCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
         }
     }
 }

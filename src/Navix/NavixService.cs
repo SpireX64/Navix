@@ -1,37 +1,29 @@
 ﻿using System;
+using Spx.Navix.Abstractions;
+using Spx.Navix.Internal;
 
 namespace Spx.Navix
 {
-    public class NavixService
+    public sealed class NavixService
     {
-        private bool _initialized = false;
         private readonly ScreenRegistry _registry = new ScreenRegistry();
+        private readonly NavigationManager _navigationManager;
 
-        private Router? _router = null;
-
-        public bool IsInitialized => _initialized;
-
-        public void Initialize(INavixConfig config)
+        public NavixService(NavixConfig config)
         {
-            if (_initialized) 
-                throw new InvalidOperationException();
-            
-            if (config == null) 
+            if (config == null)
                 throw new ArgumentNullException(nameof(config));
 
             config.ConfigureScreens(_registry);
-            
-            _router = new Router(_registry);
-            
-            _initialized = true;
+
+            _navigationManager = new NavigationManager();
+
+            var commandsFactory = config.GetCommandsFactory(_registry);
+            Router = config.GetRouter(_navigationManager, commandsFactory);
         }
 
-        public Router GetRouter()
-        {
-            if (!_initialized)
-                throw new InvalidOperationException();
+        public IRouter Router { get; }
 
-            return _router!;
-        }
+        public INavigatorHolder NavigationHolder => _navigationManager;
     }
 }
