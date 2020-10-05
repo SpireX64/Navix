@@ -40,15 +40,11 @@ namespace Spx.Navix.Internal
 
         private void ApplyPendingCommands()
         {
-            if (Navigator is null) return;
-            
             while (!_pendingCommands.IsEmpty)
             {
-                if(Navigator is null) return;
-                
-                if (!_pendingCommands.TryDequeue(out var command)) continue;
-                
-                command.Apply(Navigator);
+                if (Navigator is null) return;
+                _pendingCommands.TryDequeue(out var command);
+                command?.Apply(Navigator);
             }
         }
     }

@@ -1,5 +1,8 @@
 ﻿using System;
 using Moq;
+using Spx.Navix.Commands;
+using Spx.Navix.Internal;
+using Spx.Navix.UnitTests.Stubs;
 using Xunit;
 
 namespace Spx.Navix.UnitTests
@@ -7,55 +10,66 @@ namespace Spx.Navix.UnitTests
     public class NavixServiceTest
     {
         [Fact]
-        public void NavixService_CreateNew_NavixNotInitialized()
+        public void NavixService_CreateWithNullConfig()
         {
-            // -- Arrange:
-            var navix = new NavixService();
-            
-            // -- Assert:
-            Assert.False(navix.IsInitialized);
-        }
-        
-        [Fact]
-        public void NavixService_Initialize_NavixInitialized()
-        {
-            // -- Arrange:
-            var configMock = new Mock<INavixConfig>();
-            var navix = new NavixService();
-            
-            // -- Act:
-            navix.Initialize(configMock.Object);
-            
-            // -- Assert:
-            Assert.True(navix.IsInitialized);
-            configMock.Verify(
-                e => e.ConfigureScreens(It.IsAny<IScreenRegistry>()), 
-                Times.Once);
-        }
-
-        [Fact]
-        public void NavixService_PassNullAsConfiguration_ThrowsArgumentNull()
-        {
-            // -- Arrange:
-            var navix = new NavixService();
-            
             // -- Act & Assert:
             Assert.Throws<ArgumentNullException>(
-                () => navix.Initialize(null!));
-            Assert.False(navix.IsInitialized);
+                () => new NavixService(null!));
         }
 
         [Fact]
-        public void NavixService_InitializeTwice_ThrowsInvalidOperation()
+        public void NavixService_CreateWithDefaultConfig()
         {
             // -- Arrange:
-            var configMock = new Mock<INavixConfig>();
-            var navix = new NavixService();
-            navix.Initialize(configMock.Object);
+            var configStub = new Mock<NavixConfig>();
+            configStub.DefaultValueProvider = DefaultValueProvider.Mock;
 
-            // -- Act & Assert:
-            Assert.Throws<InvalidOperationException>(
-                () => navix.Initialize(configMock.Object));
+            // -- Act:
+            var navix = new NavixService(configStub.Object);
+
+            // -- Assert:
+            Assert.NotNull(navix.NavigationHolder);
+            Assert.NotNull(navix.Router);
+        }
+
+        [Fact]
+        public void NavixService_OverrideRouter_ReturnsCustomRouter()
+        {
+            // -- Arrange:
+            var customRouterStub = new Mock<IRouter>().Object;
+            var configMock = new Mock<NavixConfig>();
+            configMock.Setup(e => e.GetRouter(It.IsAny<INavigationManager>(), It.IsAny<ICommandsFactory>()))
+                .Returns(customRouterStub);
+            
+            // -- Act:
+            var navix = new NavixService(configMock.Object);
+            
+            // -- Assert:
+            Assert.NotNull(navix.Router);
+            Assert.Equal(customRouterStub, navix.Router);
+        }
+
+        [Fact]
+        public void NavixService_OverrideCommandsFactory_ReturnsCustomFactory()
+        {
+            // -- Arrange:
+            var screen = new ScreenStub1();
+            var customCommandsFactoryMock = new Mock<ICommandsFactory> { DefaultValueProvider = DefaultValueProvider.Mock };
+
+            var configMock = new Mock<NavixConfig>();
+            configMock.Setup(e => e.GetRouter(It.IsAny<INavigationManager>(), It.IsAny<ICommandsFactory>()))
+                .Returns((INavigationManager m, ICommandsFactory f) => new DefaultRouter(m, f));
+            configMock.Setup(e => e.GetCommandsFactory(It.IsAny<IScreenRegistry>()))
+                .Returns(customCommandsFactoryMock.Object);
+            
+            // -- Act:
+            var navix = new NavixService(configMock.Object);
+            var router = navix.Router;
+            router.Forward(screen);
+            
+            // -- Assert:
+            // Custom commands factory will be used by navigation manager
+            customCommandsFactoryMock.Verify(e => e.Forward(screen), Times.Once);
         }
     }
 }
