@@ -16,8 +16,7 @@ namespace Spx.Navix.Internal
 
         public ICollection<INavCommand> Forward(Screen screen)
         {
-            var resolver = _registry.Resolve(screen.GetType())
-                           ?? throw new UnregisteredScreenException(screen);
+            var resolver = _registry.Resolve(screen);
 
             var command = new ForwardNavCommand(screen, resolver);
             return new[] {command};

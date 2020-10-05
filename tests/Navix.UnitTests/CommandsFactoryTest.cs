@@ -37,10 +37,9 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var screen = new ScreenStub1();
-            var screenClass = Class<ScreenStub1>.Get();
             var registryMock = new Mock<IScreenRegistry>();
-            registryMock.Setup(e => e.Resolve(screenClass.Type))
-                .Returns((Class<Screen> _) => new ScreenResolverStub1());
+            registryMock.Setup(e => e.Resolve(screen))
+                .Returns((Screen _) => new ScreenResolverStub1());
 
             var factory = new CommandsFactory(registryMock.Object);
 
@@ -48,7 +47,7 @@ namespace Spx.Navix.UnitTests
             var commands = factory.Forward(screen);
             
             // -- Assert:
-            registryMock.Verify(e => e.Resolve(screenClass.Type), Times.Once);
+            registryMock.Verify(e => e.Resolve(screen), Times.Once);
             
             Assert.NotNull(commands);
             Assert.Single(commands);
