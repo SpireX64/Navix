@@ -112,11 +112,10 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var manager = new NavigationManager();
             
+            var pendingCommandMock = new Mock<INavCommand>();
             var removeNavigatorCommandMock = new Mock<INavCommand>();
             removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
                 .Callback<Navigator>((navigator) => { manager.RemoveNavigator(); });
-
-            var pendingCommandMock = new Mock<INavCommand>();
             
             var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
             var navigatorStub = new Mock<Navigator>().Object;
@@ -124,6 +123,34 @@ namespace Spx.Navix.UnitTests
 
             // -- Act:
             manager.SendCommands(commands);
+            
+            // -- Assert:
+            Assert.Null(manager.Navigator);
+            Assert.True(manager.HasPendingCommands);
+            removeNavigatorCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Once);
+            pendingCommandMock.Verify(
+                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
+        }
+
+        [Fact]
+        public void NavigationManager_RemoveNavigatorOnApplyPendingCommand_BreakApplying()
+        {
+            // -- Arrange:
+            var manager = new NavigationManager();
+            
+            var removeNavigatorCommandMock = new Mock<INavCommand>();
+            var pendingCommandMock = new Mock<INavCommand>();
+            removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
+                .Callback<Navigator>((navigator) => { manager.RemoveNavigator(); });
+            var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
+            
+            var navigatorStub = new Mock<Navigator>().Object;
+            
+            manager.SendCommands(commands);
+            
+            // -- Act:
+            manager.SetNavigator(navigatorStub);
             
             // -- Assert:
             Assert.Null(manager.Navigator);
