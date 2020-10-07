@@ -10,17 +10,17 @@ using Xunit;
 
 namespace Spx.Navix.UnitTests
 {
-    public class CommandsFactoryTest
+    public class DefaultCommandsFactoryTest
     {
         [Fact]
         public void CommandsFactory_CreateInstance_NoThrows()
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            
+
             // -- Act:
-            var factory = new CommandsFactory(registry);
-            
+            var factory = new DefaultCommandsFactory(registry);
+
             // -- Assert:
             Assert.NotNull(factory);
         }
@@ -30,7 +30,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Assert & Act:
             Assert.Throws<ArgumentNullException>(
-                () => new CommandsFactory(null!));
+                () => new DefaultCommandsFactory(null!));
         }
 
         [Fact]
@@ -42,14 +42,14 @@ namespace Spx.Navix.UnitTests
             registryMock.Setup(e => e.Resolve(screen))
                 .Returns((Screen _) => new ScreenResolverStub1());
 
-            var factory = new CommandsFactory(registryMock.Object);
+            var factory = new DefaultCommandsFactory(registryMock.Object);
 
             // -- Act:
             var commands = factory.Forward(screen);
-            
+
             // -- Assert:
             registryMock.Verify(e => e.Resolve(screen), Times.Once);
-            
+
             Assert.NotNull(commands);
             Assert.Single(commands);
 
@@ -62,11 +62,11 @@ namespace Spx.Navix.UnitTests
         public void CommandsFactory_TryCreateBackCommand_CommandCreated()
         {
             // -- Arrange:
-            var factory = new CommandsFactory(new ScreenRegistry());
-            
+            var factory = new DefaultCommandsFactory(new ScreenRegistry());
+
             // -- Act:
             var commands = factory.Back();
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Single(commands);

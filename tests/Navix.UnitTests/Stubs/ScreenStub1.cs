@@ -2,6 +2,5 @@
 {
     public class ScreenStub1 : Screen
     {
-        
     }
 }

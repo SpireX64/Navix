@@ -9,12 +9,6 @@ namespace Spx.Navix.UnitTests
 {
     public class DefaultNavixConfigTest
     {
-        private class DefaultNavixConfig : NavixConfig
-        {
-            [ExcludeFromCodeCoverage]
-            public override void ConfigureScreens(IScreenRegistry registry) { }
-        }
-
         [Fact]
         public void NavixConfig_GetRouter_ReturnsDefaultRouter()
         {
@@ -22,10 +16,10 @@ namespace Spx.Navix.UnitTests
             var navixConfig = new DefaultNavixConfig();
             var navigationManagerStub = new Mock<INavigationManager>().Object;
             var commandsFactoryStub = new Mock<ICommandsFactory>().Object;
-            
+
             // -- Act:
             var router = navixConfig.GetRouter(navigationManagerStub, commandsFactoryStub);
-            
+
             // -- Assert:
             Assert.NotNull(router);
             Assert.IsType<DefaultRouter>(router);
@@ -37,13 +31,21 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var navixConfig = new DefaultNavixConfig();
             var registry = new ScreenRegistry();
-            
+
             // -- Act:
             var factory = navixConfig.GetCommandsFactory(registry);
 
             // -- Assert:
             Assert.NotNull(factory);
-            Assert.IsType<CommandsFactory>(factory);
-        } 
+            Assert.IsType<DefaultCommandsFactory>(factory);
+        }
+
+        private class DefaultNavixConfig : NavixConfig
+        {
+            [ExcludeFromCodeCoverage]
+            public override void ConfigureScreens(IScreenRegistry registry)
+            {
+            }
+        }
     }
 }

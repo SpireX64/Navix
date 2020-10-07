@@ -5,7 +5,7 @@ using Spx.Reflection;
 
 namespace Spx.Navix.Internal
 {
-    internal sealed class ScreenRegistry: IScreenRegistry
+    internal sealed class ScreenRegistry : IScreenRegistry
     {
         private readonly ConcurrentDictionary<int, IScreenResolver>
             _screenResolversMap = new ConcurrentDictionary<int, IScreenResolver>();
@@ -27,8 +27,8 @@ namespace Spx.Navix.Internal
         public IScreenResolver Resolve(Screen screen)
         {
             var typeHash = screen.GetType().GetHashCode();
-            return _screenResolversMap.TryGetValue(typeHash, out var resolver) 
-                ? resolver 
+            return _screenResolversMap.TryGetValue(typeHash, out var resolver)
+                ? resolver
                 : throw new UnregisteredScreenException(screen);
         }
     }

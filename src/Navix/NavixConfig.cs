@@ -1,5 +1,4 @@
 ﻿using Spx.Navix.Abstractions;
-using Spx.Navix.Commands;
 using Spx.Navix.Internal.Defaults;
 
 namespace Spx.Navix
@@ -10,7 +9,7 @@ namespace Spx.Navix
 
         public virtual ICommandsFactory GetCommandsFactory(IScreenRegistry registry)
         {
-            return new CommandsFactory(registry);
+            return new DefaultCommandsFactory(registry);
         }
 
         public virtual IRouter GetRouter(INavigationManager navigationManager, ICommandsFactory commandsFactory)

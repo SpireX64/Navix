@@ -1,20 +1,19 @@
 ﻿using System;
 using Spx.Navix.Abstractions;
-using Spx.Navix.Commands;
 
 namespace Spx.Navix.Internal.Defaults
 {
-    internal class DefaultRouter: IRouter
+    internal class DefaultRouter : IRouter
     {
-        private readonly INavigationManager _navigationManager;
         private readonly ICommandsFactory _commandsFactory;
+        private readonly INavigationManager _navigationManager;
 
         public DefaultRouter(INavigationManager navigationManager, ICommandsFactory commandsFactory)
         {
-            _navigationManager = navigationManager 
+            _navigationManager = navigationManager
                                  ?? throw new ArgumentNullException(nameof(navigationManager));
-            
-            _commandsFactory = commandsFactory 
+
+            _commandsFactory = commandsFactory
                                ?? throw new ArgumentNullException(nameof(commandsFactory));
         }
 

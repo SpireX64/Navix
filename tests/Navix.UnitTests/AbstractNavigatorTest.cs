@@ -5,8 +5,6 @@ namespace Spx.Navix.UnitTests
 {
     public class AbstractNavigatorTest
     {
-        private class AbstractNavigator : Navigator {}
-
         [Fact]
         public void Navigator_TryForward_ThrowsNotImpl()
         {
@@ -27,6 +25,10 @@ namespace Spx.Navix.UnitTests
             // -- Act & Assert:
             Assert.Throws<NotSupportedException>(
                 () => navigator.Back());
+        }
+
+        private class AbstractNavigator : Navigator
+        {
         }
     }
 }

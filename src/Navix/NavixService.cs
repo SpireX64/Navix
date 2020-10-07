@@ -6,8 +6,8 @@ namespace Spx.Navix
 {
     public sealed class NavixService
     {
+        private readonly NavigationManager _navigatorManager;
         private readonly ScreenRegistry _registry = new ScreenRegistry();
-        private readonly NavigationManager _navigationManager;
 
         public NavixService(NavixConfig config)
         {
@@ -16,14 +16,14 @@ namespace Spx.Navix
 
             config.ConfigureScreens(_registry);
 
-            _navigationManager = new NavigationManager();
+            _navigatorManager = new NavigationManager();
 
             var commandsFactory = config.GetCommandsFactory(_registry);
-            Router = config.GetRouter(_navigationManager, commandsFactory);
+            Router = config.GetRouter(_navigatorManager, commandsFactory);
         }
 
         public IRouter Router { get; }
 
-        public INavigatorHolder NavigationHolder => _navigationManager;
+        public INavigatorHolder NavigatorHolder => _navigatorManager;
     }
 }

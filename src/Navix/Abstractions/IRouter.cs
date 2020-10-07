@@ -3,5 +3,7 @@
     public interface IRouter
     {
         void Forward(Screen screen);
+
+        void Back();
     }
 }

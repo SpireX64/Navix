@@ -5,11 +5,11 @@ using Spx.Navix.Commands;
 
 namespace Spx.Navix.Internal.Defaults
 {
-    internal sealed class CommandsFactory : ICommandsFactory
+    internal sealed class DefaultCommandsFactory : ICommandsFactory
     {
         private readonly IScreenRegistry _registry;
 
-        public CommandsFactory(IScreenRegistry registry)
+        public DefaultCommandsFactory(IScreenRegistry registry)
         {
             _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
