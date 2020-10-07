@@ -1,4 +1,5 @@
-﻿using Spx.Navix.Abstractions;
+﻿using System.Collections.Generic;
+using Spx.Navix.Abstractions;
 
 namespace Spx.Navix.Commands
 {
@@ -13,8 +14,9 @@ namespace Spx.Navix.Commands
             _screenResolver = resolver;
         }
 
-        public void Apply(Navigator navigator)
+        public void Apply(Navigator navigator, ScreenStack screens)
         {
+            screens.Push(_screen);
             navigator.Forward(_screen, _screenResolver);
         }
     }

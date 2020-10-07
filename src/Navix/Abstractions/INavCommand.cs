@@ -2,6 +2,6 @@
 {
     public interface INavCommand
     {
-        void Apply(Navigator navigator);
+        void Apply(Navigator navigator, ScreenStack screens);
     }
 }
