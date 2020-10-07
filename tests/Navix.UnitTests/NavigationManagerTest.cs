@@ -180,16 +180,16 @@ namespace Spx.Navix.UnitTests
             var manager = new NavigationManager(registryStub);
             var navigatorMock = new Mock<Navigator>();
             var middlewareMock = new Mock<INavigationMiddleware>();
-            
+
             manager.SetNavigator(navigatorMock.Object);
-            manager.SetMiddlewares(new [] {middlewareMock.Object});
-            
+            manager.SetMiddlewares(new[] {middlewareMock.Object});
+
             var screen = new ScreenStub1();
             INavCommand command = new ForwardNavCommand(screen, new ScreenResolverStub1());
-            
+
             // -- Act:
-            manager.SendCommands(new [] { command });
-            
+            manager.SendCommands(new[] {command});
+
             // -- Assert:
             middlewareMock.Verify(
                 e => e.BeforeApply(null, ref command), Times.Once);
@@ -204,28 +204,27 @@ namespace Spx.Navix.UnitTests
             var firstScreen = new ScreenStub1();
             var firstScreenResolver = new ScreenResolverStub1();
             var firstCommand = new ForwardNavCommand(firstScreen, firstScreenResolver);
-            
+
             var secondScreen = new ScreenStub2();
             var secondScreenResolver = new ScreenResolverStub1();
             var secondCommand = new ForwardNavCommand(secondScreen, secondScreenResolver);
             var middleware = new ReplaceForwardCommandMiddleware(secondCommand);
-            
+
             var registryStub = new Mock<IScreenRegistry>().Object;
             var navigatorMock = new Mock<Navigator>();
             var manager = new NavigationManager(registryStub);
             manager.SetNavigator(navigatorMock.Object);
-            manager.SetMiddlewares(new []{ middleware });
-            
+            manager.SetMiddlewares(new[] {middleware});
+
             // -- Act:
-            manager.SendCommands(new [] { firstCommand });
-            
+            manager.SendCommands(new[] {firstCommand});
+
             // -- Assert:
             Assert.Equal(secondCommand, middleware.ExecutedCommand);
             navigatorMock.Verify(
                 e => e.Forward(firstScreen, firstScreenResolver), Times.Never);
             navigatorMock.Verify(
                 e => e.Forward(secondScreen, secondScreenResolver), Times.Once);
-            
         }
     }
 }

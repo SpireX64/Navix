@@ -9,6 +9,8 @@ namespace Spx.Navix
     {
         private readonly List<INavigationMiddleware> _middlewares = new List<INavigationMiddleware>();
 
+        internal IReadOnlyCollection<INavigationMiddleware> Middlewares => _middlewares;
+
         public abstract void Configure(IScreenRegistry registry);
 
         [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
@@ -27,7 +29,5 @@ namespace Spx.Navix
         {
             _middlewares.Add(middleware);
         }
-
-        internal IReadOnlyCollection<INavigationMiddleware> Middlewares => _middlewares;
     }
 }

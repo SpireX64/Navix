@@ -6,9 +6,10 @@ namespace Spx.Navix.Internal
 {
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {
+        private readonly Queue<INavCommand> _pendingCommands = new Queue<INavCommand>();
+
         // ReSharper disable once NotAccessedField.Local
         private readonly Type? _rootScreenType;
-        private readonly Queue<INavCommand> _pendingCommands = new Queue<INavCommand>();
         private readonly ScreenStack _screens = new ScreenStack();
         private IReadOnlyCollection<INavigationMiddleware> _middlewares;
 
@@ -18,13 +19,15 @@ namespace Spx.Navix.Internal
             _middlewares = new INavigationMiddleware[0];
         }
 
-        public bool HasPendingCommands => (_pendingCommands.Count > 0);
+        public bool HasPendingCommands => _pendingCommands.Count > 0;
 
         public void SendCommands(IEnumerable<INavCommand> navCommands)
         {
             foreach (var command in navCommands)
                 if (Navigator is null)
+                {
                     _pendingCommands.Enqueue(command);
+                }
                 else
                 {
                     var commandRef = command;
