@@ -43,7 +43,7 @@ namespace Spx.Navix.UnitTests
         private class DefaultNavixConfig : NavixConfig
         {
             [ExcludeFromCodeCoverage]
-            public override void ConfigureScreens(IScreenRegistry registry)
+            public override void Configure(IScreenRegistry registry)
             {
             }
         }

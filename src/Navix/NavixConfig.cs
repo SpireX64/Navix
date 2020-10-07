@@ -5,7 +5,7 @@ namespace Spx.Navix
 {
     public abstract class NavixConfig
     {
-        public abstract void ConfigureScreens(IScreenRegistry registry);
+        public abstract void Configure(IScreenRegistry registry);
 
         public virtual ICommandsFactory GetCommandsFactory(IScreenRegistry registry)
         {
