@@ -8,6 +8,7 @@ namespace Spx.Navix.Internal
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {
         private readonly ConcurrentQueue<INavCommand> _pendingCommands = new ConcurrentQueue<INavCommand>();
+        private readonly ScreenStack _screens = new ScreenStack();
 
         public bool HasPendingCommands => !_pendingCommands.IsEmpty;
 
@@ -17,7 +18,7 @@ namespace Spx.Navix.Internal
                 if (Navigator is null)
                     _pendingCommands.Enqueue(command);
                 else
-                    command.Apply(Navigator);
+                    command.Apply(Navigator, _screens);
         }
 
         public Navigator? Navigator { get; private set; }
@@ -41,7 +42,7 @@ namespace Spx.Navix.Internal
             {
                 if (Navigator is null) return;
                 _pendingCommands.TryDequeue(out var command);
-                command?.Apply(Navigator);
+                command?.Apply(Navigator, _screens);
             }
         }
     }

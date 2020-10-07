@@ -62,7 +62,7 @@ namespace Spx.Navix.UnitTests
             // -- Assert
             Assert.True(manager.HasPendingCommands);
             commandMock.Verify(
-                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
+                e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Never);
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             Assert.False(manager.HasPendingCommands);
             commandMock.Verify(
-                e => e.Apply(navigatorStub), Times.Once);
+                e => e.Apply(navigatorStub, It.IsAny<ScreenStack>()), Times.Once);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace Spx.Navix.UnitTests
             // -- Assert:
             Assert.False(manager.HasPendingCommands);
             commandMock.Verify(
-                e => e.Apply(navigatorStub), Times.Once);
+                e => e.Apply(navigatorStub, It.IsAny<ScreenStack>()), Times.Once);
         }
 
         [Fact]
@@ -113,8 +113,9 @@ namespace Spx.Navix.UnitTests
 
             var pendingCommandMock = new Mock<INavCommand>();
             var removeNavigatorCommandMock = new Mock<INavCommand>();
-            removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
-                .Callback<Navigator>(navigator => { manager.RemoveNavigator(); });
+            removeNavigatorCommandMock
+                .Setup(e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()))
+                .Callback(() => { manager.RemoveNavigator(); });
 
             var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
             var navigatorStub = new Mock<Navigator>().Object;
@@ -127,9 +128,9 @@ namespace Spx.Navix.UnitTests
             Assert.Null(manager.Navigator);
             Assert.True(manager.HasPendingCommands);
             removeNavigatorCommandMock.Verify(
-                e => e.Apply(It.IsAny<Navigator>()), Times.Once);
+                e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Once);
             pendingCommandMock.Verify(
-                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
+                e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Never);
         }
 
         [Fact]
@@ -140,8 +141,9 @@ namespace Spx.Navix.UnitTests
 
             var removeNavigatorCommandMock = new Mock<INavCommand>();
             var pendingCommandMock = new Mock<INavCommand>();
-            removeNavigatorCommandMock.Setup(e => e.Apply(It.IsAny<Navigator>()))
-                .Callback<Navigator>(navigator => { manager.RemoveNavigator(); });
+            removeNavigatorCommandMock
+                .Setup(e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()))
+                .Callback(() => { manager.RemoveNavigator(); });
             var commands = new[] {removeNavigatorCommandMock.Object, pendingCommandMock.Object};
 
             var navigatorStub = new Mock<Navigator>().Object;
@@ -155,9 +157,9 @@ namespace Spx.Navix.UnitTests
             Assert.Null(manager.Navigator);
             Assert.True(manager.HasPendingCommands);
             removeNavigatorCommandMock.Verify(
-                e => e.Apply(It.IsAny<Navigator>()), Times.Once);
+                e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Once);
             pendingCommandMock.Verify(
-                e => e.Apply(It.IsAny<Navigator>()), Times.Never);
+                e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Never);
         }
     }
 }

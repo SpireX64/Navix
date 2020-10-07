@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
-namespace Spx.Navix.Internal
+namespace Spx.Navix
 {
-    internal sealed class ScreenStack
+    public sealed class ScreenStack
     {
+        internal ScreenStack() {}
+        
         private readonly ConcurrentStack<Screen> _screens = new ConcurrentStack<Screen>();
 
         public bool IsRoot => _screens.IsEmpty;
