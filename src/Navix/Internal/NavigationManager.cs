@@ -9,9 +9,15 @@ namespace Spx.Navix.Internal
     {
         private readonly ConcurrentQueue<INavCommand> _pendingCommands = new ConcurrentQueue<INavCommand>();
         private readonly ScreenStack _screens = new ScreenStack();
+        private readonly Type? _rootScreenType;
 
         public bool HasPendingCommands => !_pendingCommands.IsEmpty;
 
+        public NavigationManager(IScreenRegistry registry)
+        {
+            _rootScreenType = registry.RootScreenType;
+        }
+        
         public void SendCommands(IEnumerable<INavCommand> navCommands)
         {
             foreach (var command in navCommands)
