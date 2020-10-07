@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Spx.Navix.Abstractions;
 using Spx.Navix.Internal;
 
@@ -18,6 +19,8 @@ namespace Spx.Navix
 
             var commandsFactory = config.GetCommandsFactory(_registry);
             _navigationManager = new NavigationManager(_registry);
+            _navigationManager.SetMiddlewares(config.Middlewares);
+            
             Router = config.GetRouter(_navigationManager, commandsFactory);
         }
 

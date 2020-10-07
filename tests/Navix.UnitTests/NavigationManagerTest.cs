@@ -1,6 +1,8 @@
 ﻿using Moq;
 using Spx.Navix.Abstractions;
+using Spx.Navix.Commands;
 using Spx.Navix.Internal;
+using Spx.Navix.UnitTests.Stubs;
 using Xunit;
 
 namespace Spx.Navix.UnitTests
@@ -168,6 +170,62 @@ namespace Spx.Navix.UnitTests
                 e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Once);
             pendingCommandMock.Verify(
                 e => e.Apply(It.IsAny<Navigator>(), It.IsAny<ScreenStack>()), Times.Never);
+        }
+
+        [Fact]
+        public void NavigationManager_UseMiddleware_MiddlewareInvoked()
+        {
+            // -- Arrange:
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
+            var navigatorMock = new Mock<Navigator>();
+            var middlewareMock = new Mock<INavigationMiddleware>();
+            
+            manager.SetNavigator(navigatorMock.Object);
+            manager.SetMiddlewares(new [] {middlewareMock.Object});
+            
+            var screen = new ScreenStub1();
+            INavCommand command = new ForwardNavCommand(screen, new ScreenResolverStub1());
+            
+            // -- Act:
+            manager.SendCommands(new [] { command });
+            
+            // -- Assert:
+            middlewareMock.Verify(
+                e => e.BeforeApply(null, ref command), Times.Once);
+            middlewareMock.Verify(
+                e => e.AfterApply(screen, command));
+        }
+
+        [Fact]
+        public void NavigationManager_ReplaceCommandByMiddleware_CommandReplaced()
+        {
+            // -- Arrange:
+            var firstScreen = new ScreenStub1();
+            var firstScreenResolver = new ScreenResolverStub1();
+            var firstCommand = new ForwardNavCommand(firstScreen, firstScreenResolver);
+            
+            var secondScreen = new ScreenStub2();
+            var secondScreenResolver = new ScreenResolverStub1();
+            var secondCommand = new ForwardNavCommand(secondScreen, secondScreenResolver);
+            var middleware = new ReplaceForwardCommandMiddleware(secondCommand);
+            
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var navigatorMock = new Mock<Navigator>();
+            var manager = new NavigationManager(registryStub);
+            manager.SetNavigator(navigatorMock.Object);
+            manager.SetMiddlewares(new []{ middleware });
+            
+            // -- Act:
+            manager.SendCommands(new [] { firstCommand });
+            
+            // -- Assert:
+            Assert.Equal(secondCommand, middleware.ExecutedCommand);
+            navigatorMock.Verify(
+                e => e.Forward(firstScreen, firstScreenResolver), Times.Never);
+            navigatorMock.Verify(
+                e => e.Forward(secondScreen, secondScreenResolver), Times.Once);
+            
         }
     }
 }
