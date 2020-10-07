@@ -8,16 +8,16 @@ namespace Spx.Navix.Internal
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {
         private readonly ConcurrentQueue<INavCommand> _pendingCommands = new ConcurrentQueue<INavCommand>();
-        private readonly ScreenStack _screens = new ScreenStack();
         private readonly Type? _rootScreenType;
-
-        public bool HasPendingCommands => !_pendingCommands.IsEmpty;
+        private readonly ScreenStack _screens = new ScreenStack();
 
         public NavigationManager(IScreenRegistry registry)
         {
             _rootScreenType = registry.RootScreenType;
         }
-        
+
+        public bool HasPendingCommands => !_pendingCommands.IsEmpty;
+
         public void SendCommands(IEnumerable<INavCommand> navCommands)
         {
             foreach (var command in navCommands)

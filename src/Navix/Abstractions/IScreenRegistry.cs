@@ -6,7 +6,7 @@ namespace Spx.Navix.Abstractions
     public interface IScreenRegistry
     {
         public bool IsEmpty { get; }
-        
+
         public Type? RootScreenType { get; }
 
         public void Register(Class<Screen> screenClass, IScreenResolver resolver);

@@ -58,21 +58,21 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var registry = new ScreenRegistry();
             var rootScreen = typeof(ScreenStub1);
-            
+
             // -- Act:
             registry.RegisterAsRoot(rootScreen);
-            
+
             // -- Assert:
             Assert.NotNull(registry.RootScreenType);
             Assert.Equal(rootScreen, registry.RootScreenType);
         }
-        
+
         [Fact]
         public void ScreenRegistry_GetRootScreenWithoutRegistration_ReturnsNull()
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
-            
+
             // -- Assert:
             Assert.Null(registry.RootScreenType);
         }

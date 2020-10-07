@@ -5,11 +5,11 @@ namespace Spx.Navix
 {
     public sealed class ScreenStack
     {
+        private readonly ConcurrentStack<Screen> _screens = new ConcurrentStack<Screen>();
+
         internal ScreenStack()
         {
         }
-        
-        private readonly ConcurrentStack<Screen> _screens = new ConcurrentStack<Screen>();
 
         public bool IsRoot => _screens.IsEmpty;
 
@@ -31,7 +31,7 @@ namespace Spx.Navix
 
         public Screen? Pop()
         {
-            if(!_screens.TryPop(out var screen))
+            if (!_screens.TryPop(out var screen))
                 throw new InvalidOperationException();
             return screen;
         }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Spx.Navix.Abstractions;
+﻿using Spx.Navix.Abstractions;
 
 namespace Spx.Navix.Commands
 {
