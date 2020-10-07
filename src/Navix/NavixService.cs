@@ -16,9 +16,8 @@ namespace Spx.Navix
 
             config.ConfigureScreens(_registry);
 
-            _navigationManager = new NavigationManager();
-
             var commandsFactory = config.GetCommandsFactory(_registry);
+            _navigationManager = new NavigationManager(_registry);
             Router = config.GetRouter(_navigationManager, commandsFactory);
         }
 

@@ -5,7 +5,9 @@ namespace Spx.Navix
 {
     public sealed class ScreenStack
     {
-        internal ScreenStack() {}
+        internal ScreenStack()
+        {
+        }
         
         private readonly ConcurrentStack<Screen> _screens = new ConcurrentStack<Screen>();
 

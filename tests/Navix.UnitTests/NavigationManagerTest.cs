@@ -11,24 +11,26 @@ namespace Spx.Navix.UnitTests
         public void NavigationManager_SetNavigator_NavigatorApplied()
         {
             // -- Arrange:
-            var navigatorFake = new Mock<Navigator>().Object;
-            var manager = new NavigationManager();
+            var navigatorStub = new Mock<Navigator>().Object;
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             // -- Act:
-            manager.SetNavigator(navigatorFake);
+            manager.SetNavigator(navigatorStub);
 
             // -- Assert:
             Assert.NotNull(manager.Navigator);
-            Assert.Equal(navigatorFake, manager.Navigator);
+            Assert.Equal(navigatorStub, manager.Navigator);
         }
 
         [Fact]
         public void NavigationManager_RemoveNavigator_NavigatorRemoved()
         {
             // -- Arrange:
-            var navigatorFake = new Mock<Navigator>().Object;
-            var manager = new NavigationManager();
-            manager.SetNavigator(navigatorFake);
+            var navigatorStub = new Mock<Navigator>().Object;
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
+            manager.SetNavigator(navigatorStub);
 
             // -- Act:
             manager.RemoveNavigator();
@@ -41,7 +43,8 @@ namespace Spx.Navix.UnitTests
         public void NavigationManager_CreateInstance_NoPendingCommandsAndNavigator()
         {
             // -- Arrange:
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             // -- Assert:
             Assert.Null(manager.Navigator);
@@ -54,7 +57,8 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var commandMock = new Mock<INavCommand>();
             var commands = new[] {commandMock.Object};
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             // -- Act:
             manager.SendCommands(commands);
@@ -73,7 +77,8 @@ namespace Spx.Navix.UnitTests
             var commands = new[] {commandMock.Object};
             var navigatorStub = new Mock<Navigator>().Object;
 
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
             manager.SetNavigator(navigatorStub);
 
             // -- Act:
@@ -93,7 +98,8 @@ namespace Spx.Navix.UnitTests
             var commands = new[] {commandMock.Object};
             var navigatorStub = new Mock<Navigator>().Object;
 
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             // -- Act:
             manager.SendCommands(commands);
@@ -109,7 +115,8 @@ namespace Spx.Navix.UnitTests
         public void NavigationManager_RemoveNavigatorOnSendCommands_PendingCommand()
         {
             // -- Arrange:
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             var pendingCommandMock = new Mock<INavCommand>();
             var removeNavigatorCommandMock = new Mock<INavCommand>();
@@ -137,7 +144,8 @@ namespace Spx.Navix.UnitTests
         public void NavigationManager_RemoveNavigatorOnApplyPendingCommand_BreakApplying()
         {
             // -- Arrange:
-            var manager = new NavigationManager();
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
 
             var removeNavigatorCommandMock = new Mock<INavCommand>();
             var pendingCommandMock = new Mock<INavCommand>();
