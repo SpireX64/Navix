@@ -40,11 +40,30 @@ namespace Spx.Navix.UnitTests
             Assert.IsType<DefaultCommandsFactory>(factory);
         }
 
+        [Fact]
+        public void NavixConfig_AddMiddleware_MiddlewareAddedToService()
+        {
+            // -- Arrange:
+            var middlewareStub = new Mock<INavigationMiddleware>().Object;
+            var registry = new ScreenRegistry();
+            var config = new DefaultNavixConfig {Middleware = middlewareStub};
+            
+            // -- Act:
+            config.Configure(registry);
+
+            // -- Assert:
+            Assert.Contains(middlewareStub, config.Middlewares);
+        }
+
+        [ExcludeFromCodeCoverage]
         private class DefaultNavixConfig : NavixConfig
         {
-            [ExcludeFromCodeCoverage]
-            public override void ConfigureScreens(IScreenRegistry registry)
+            public INavigationMiddleware? Middleware { get; set; } = null;
+            
+            public override void Configure(IScreenRegistry registry)
             {
+                if(Middleware != null)
+                    AddMiddleware(Middleware);
             }
         }
     }

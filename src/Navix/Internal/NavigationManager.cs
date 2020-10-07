@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Spx.Navix.Abstractions;
 
@@ -7,24 +6,35 @@ namespace Spx.Navix.Internal
 {
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {
-        private readonly ConcurrentQueue<INavCommand> _pendingCommands = new ConcurrentQueue<INavCommand>();
+        private readonly Queue<INavCommand> _pendingCommands = new Queue<INavCommand>();
+
+        // ReSharper disable once NotAccessedField.Local
         private readonly Type? _rootScreenType;
         private readonly ScreenStack _screens = new ScreenStack();
+        private IReadOnlyCollection<INavigationMiddleware> _middlewares;
 
         public NavigationManager(IScreenRegistry registry)
         {
             _rootScreenType = registry.RootScreenType;
+            _middlewares = new INavigationMiddleware[0];
         }
 
-        public bool HasPendingCommands => !_pendingCommands.IsEmpty;
+        public bool HasPendingCommands => _pendingCommands.Count > 0;
 
         public void SendCommands(IEnumerable<INavCommand> navCommands)
         {
             foreach (var command in navCommands)
                 if (Navigator is null)
+                {
                     _pendingCommands.Enqueue(command);
+                }
                 else
-                    command.Apply(Navigator, _screens);
+                {
+                    var commandRef = command;
+                    InvokeMiddlewaresBefore(ref commandRef);
+                    commandRef.Apply(Navigator, _screens);
+                    InvokeMiddlewaresAfter(commandRef);
+                }
         }
 
         public Navigator? Navigator { get; private set; }
@@ -44,12 +54,32 @@ namespace Spx.Navix.Internal
 
         private void ApplyPendingCommands()
         {
-            while (!_pendingCommands.IsEmpty)
+            while (_pendingCommands.Count > 0)
             {
                 if (Navigator is null) return;
-                _pendingCommands.TryDequeue(out var command);
-                command?.Apply(Navigator, _screens);
+                var command = _pendingCommands.Dequeue();
+
+                InvokeMiddlewaresBefore(ref command);
+                command.Apply(Navigator, _screens);
+                InvokeMiddlewaresAfter(command);
             }
+        }
+
+        public void SetMiddlewares(IReadOnlyCollection<INavigationMiddleware> middlewares)
+        {
+            _middlewares = middlewares;
+        }
+
+        private void InvokeMiddlewaresBefore(ref INavCommand incomingCommand)
+        {
+            foreach (var middleware in _middlewares)
+                middleware.BeforeApply(_screens.CurrentScreen, ref incomingCommand);
+        }
+
+        private void InvokeMiddlewaresAfter(INavCommand command)
+        {
+            foreach (var middleware in _middlewares)
+                middleware.AfterApply(_screens.CurrentScreen, command);
         }
     }
 }

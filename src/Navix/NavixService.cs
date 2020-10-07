@@ -14,10 +14,12 @@ namespace Spx.Navix
             if (config == null)
                 throw new ArgumentNullException(nameof(config));
 
-            config.ConfigureScreens(_registry);
+            config.Configure(_registry);
 
             var commandsFactory = config.GetCommandsFactory(_registry);
             _navigationManager = new NavigationManager(_registry);
+            _navigationManager.SetMiddlewares(config.Middlewares);
+
             Router = config.GetRouter(_navigationManager, commandsFactory);
         }
 
