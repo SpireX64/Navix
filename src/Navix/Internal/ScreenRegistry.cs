@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using Spx.Navix.Abstractions;
 using Spx.Navix.Exceptions;
 using Spx.Reflection;
@@ -11,11 +12,17 @@ namespace Spx.Navix.Internal
             _screenResolversMap = new ConcurrentDictionary<int, IScreenResolver>();
 
         public bool IsEmpty => _screenResolversMap.IsEmpty;
+        public Type? RootScreenType { get; private set; }
 
         public void Register(Class<Screen> screenClass, IScreenResolver resolver)
         {
             var typeHash = screenClass.GetHashCode();
             _screenResolversMap.TryAdd(typeHash, resolver);
+        }
+
+        public void RegisterAsRoot(Class<Screen> rootScreenClass)
+        {
+            RootScreenType = rootScreenClass.Type;
         }
 
         public bool HasScreen(Class<Screen> screenClass)
