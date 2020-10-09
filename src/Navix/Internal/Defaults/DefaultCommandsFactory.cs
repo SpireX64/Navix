@@ -34,5 +34,11 @@ namespace Spx.Navix.Internal.Defaults
             var command = new BackToScreenNavCommand(screenClass);
             return new[] {command};
         }
+
+        public ICollection<INavCommand> BackToRoot()
+        {
+            var command = new BackToRootNavCommand();
+            return new[] {command};
+        }
     }
 }

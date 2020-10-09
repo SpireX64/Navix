@@ -39,6 +39,17 @@ namespace Spx.Navix.UnitTests
                 () => navigator.BackToScreen(new ScreenStub1()));
         }
 
+        [Fact]
+        public void Navigator_TryBackToRoot_ThrowsNotSupported()
+        {
+            // -- Arrange:
+            var navigator = new AbstractNavigator();
+
+            // -- Act & Assert:
+            Assert.Throws<NotSupportedException>(
+                () => navigator.BackToRoot());
+        }
+
         private class AbstractNavigator : Navigator
         {
         }

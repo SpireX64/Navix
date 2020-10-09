@@ -38,14 +38,10 @@ namespace Spx.Navix
             return screen;
         }
 
-        public IEnumerator<Screen> GetEnumerator()
-        {
-            return _screens.GetEnumerator();
-        }
+        public IEnumerator<Screen> GetEnumerator() => _screens.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public void Clear() => _screens.Clear();
     }
 }

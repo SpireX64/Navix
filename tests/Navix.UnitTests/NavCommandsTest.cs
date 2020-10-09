@@ -87,5 +87,23 @@ namespace Spx.Navix.UnitTests
             
             Assert.Equal(screenType, exception.ScreenClass.Type);
         }
+
+        [Fact]
+        public void BackToRootCommand_Apply_InvokeBackToRoot()
+        {
+            // -- Arrange:
+            var navigatorMock = new Mock<Navigator>();
+            var stack = new ScreenStack();
+            stack.Push(new ScreenStub1());
+            var command = new BackToRootNavCommand();
+            
+            // -- Act
+            command.Apply(navigatorMock.Object, stack);
+            
+            // -- Assert:
+            Assert.True(stack.IsRoot);
+            Assert.Equal(0, stack.Count);
+            navigatorMock.Verify(e => e.BackToRoot(), Times.Once);
+        }
     }
 }

@@ -35,5 +35,11 @@ namespace Spx.Navix.Internal.Defaults
             var commands = _commandsFactory.BackToScreen(screenClass);
             _navigationManager.SendCommands(commands);
         }
+
+        public void BackToRoot()
+        {
+            var commands = _commandsFactory.BackToRoot();
+            _navigationManager.SendCommands(commands);
+        }
     }
 }

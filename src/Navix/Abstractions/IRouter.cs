@@ -9,5 +9,7 @@ namespace Spx.Navix.Abstractions
         void Back();
 
         void BackToScreen(Class<Screen> screenClass);
+
+        void BackToRoot();
     }
 }

@@ -6,6 +6,7 @@ namespace Spx.Navix.Commands
     {
         public void Apply(Navigator navigator, ScreenStack screens)
         {
+            screens.Clear();
             navigator.BackToRoot();
         }
     }
