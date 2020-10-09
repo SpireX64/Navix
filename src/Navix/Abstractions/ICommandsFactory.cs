@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Spx.Reflection;
 
 namespace Spx.Navix.Abstractions
 {
@@ -6,5 +7,8 @@ namespace Spx.Navix.Abstractions
     {
         public ICollection<INavCommand> Forward(Screen screen);
         public ICollection<INavCommand> Back();
+        public ICollection<INavCommand> BackToScreen(Class<Screen> screenClass);
+        public ICollection<INavCommand> BackToRoot();
+        public ICollection<INavCommand> ReplaceScreen(Screen screen);
     }
 }

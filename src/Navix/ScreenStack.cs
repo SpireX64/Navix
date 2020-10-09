@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Spx.Navix
 {
-    public sealed class ScreenStack
+    public sealed class ScreenStack : IEnumerable<Screen>
     {
         private readonly ConcurrentStack<Screen> _screens = new ConcurrentStack<Screen>();
 
@@ -24,6 +26,16 @@ namespace Spx.Navix
             }
         }
 
+        public IEnumerator<Screen> GetEnumerator()
+        {
+            return _screens.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
         public void Push(params Screen[] screens)
         {
             _screens.PushRange(screens);
@@ -34,6 +46,11 @@ namespace Spx.Navix
             if (!_screens.TryPop(out var screen))
                 throw new InvalidOperationException();
             return screen;
+        }
+
+        public void Clear()
+        {
+            _screens.Clear();
         }
     }
 }

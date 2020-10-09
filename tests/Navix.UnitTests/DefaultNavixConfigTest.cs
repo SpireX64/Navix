@@ -47,7 +47,7 @@ namespace Spx.Navix.UnitTests
             var middlewareStub = new Mock<INavigationMiddleware>().Object;
             var registry = new ScreenRegistry();
             var config = new DefaultNavixConfig {Middleware = middlewareStub};
-            
+
             // -- Act:
             config.Configure(registry);
 
@@ -59,10 +59,10 @@ namespace Spx.Navix.UnitTests
         private class DefaultNavixConfig : NavixConfig
         {
             public INavigationMiddleware? Middleware { get; set; } = null;
-            
+
             public override void Configure(IScreenRegistry registry)
             {
-                if(Middleware != null)
+                if (Middleware != null)
                     AddMiddleware(Middleware);
             }
         }
