@@ -1,8 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Navix</Title>
     <RootNamespace>Spx.Navix</RootNamespace>
+    <Authors>SpireX (Artem Sobolenkov)</Authors>
+    <License>BSD-3-Clause License</License>
+    <PackageVersion>0.0.1</PackageVersion>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+    <PackageProjectUrl>https://github.com/SpireX64/Navix</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SpireX64/Navix</RepositoryUrl>
+    <RepositoryType>public</RepositoryType>
+    <PackageTags>navigation, dotnet, library, cross-platform, navix, spirex, spx</PackageTags>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -10,5 +20,4 @@
   <ItemGroup>
     <PackageReference Include="Spx.Core" Version="0.0.1" />
   </ItemGroup>
-
 </Project>
