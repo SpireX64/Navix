@@ -81,10 +81,10 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            
+
             // -- Act:
             var commands = factory.BackToScreen(typeof(ScreenStub1));
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Single(commands);
@@ -99,10 +99,10 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            
+
             // -- Act:
             var commands = factory.BackToRoot();
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Single(commands);
@@ -119,10 +119,10 @@ namespace Spx.Navix.UnitTests
             var registry = new ScreenRegistry();
             registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
             var factory = new DefaultCommandsFactory(registry);
-            
+
             // -- Act:
             var commands = factory.ReplaceScreen(new ScreenStub1());
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Single(commands);

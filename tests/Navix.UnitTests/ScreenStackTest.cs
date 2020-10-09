@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Spx.Navix.UnitTests.Stubs;
 using Xunit;
 
@@ -86,21 +85,21 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange
             var stack = new ScreenStack();
-            var screen = new ScreenStub1(); 
+            var screen = new ScreenStub1();
             stack.Push(screen);
-            
+
             // -- Act:
             var enumerator = stack.GetEnumerator();
-            
+
             // ReSharper disable once SuspiciousTypeConversion.Global
             var enumeratorByEnumerable = ((IEnumerable) stack).GetEnumerator();
-            
+
             // -- Assert:
             Assert.NotNull(enumerator);
             Assert.NotNull(enumeratorByEnumerable);
             Assert.True(enumerator.MoveNext());
             Assert.Equal(screen, enumerator.Current);
-            
+
             enumerator?.Dispose();
         }
     }

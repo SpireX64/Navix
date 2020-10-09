@@ -84,10 +84,10 @@ namespace Spx.Navix.UnitTests
                 .Returns(commands);
 
             var router = new DefaultRouter(managerMock.Object, commandsFactoryMock.Object);
-            
+
             // -- Act:
             router.BackToScreen(screenType);
-            
+
             // -- Assert:
             commandsFactoryMock.Verify(e => e.BackToScreen(screenType));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
@@ -103,12 +103,12 @@ namespace Spx.Navix.UnitTests
             cmdFactoryMock
                 .Setup(e => e.BackToRoot())
                 .Returns(commands);
-            
+
             var router = new DefaultRouter(managerMock.Object, cmdFactoryMock.Object);
-            
+
             // -- Act
             router.BackToRoot();
-            
+
             // -- Assert
             cmdFactoryMock.Verify(e => e.BackToRoot());
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
@@ -125,12 +125,12 @@ namespace Spx.Navix.UnitTests
             cmdFactoryMock
                 .Setup(e => e.ReplaceScreen(screen))
                 .Returns(commands);
-            
+
             var router = new DefaultRouter(managerMock.Object, cmdFactoryMock.Object);
-            
+
             // -- Act:
             router.Replace(screen);
-            
+
             // -- Assert:
             cmdFactoryMock.Verify(e => e.ReplaceScreen(screen));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);

@@ -27,7 +27,7 @@ namespace Spx.Navix.UnitTests
             Assert.Throws<NotSupportedException>(
                 () => navigator.Back());
         }
-        
+
         [Fact]
         public void Navigator_TryBackToScreen_ThrowsNotSupported()
         {
@@ -55,7 +55,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var navigator = new AbstractNavigator();
-            
+
             // -- Act & Assert:
             Assert.Throws<NotSupportedException>(
                 () => navigator.Replace(new ScreenStub1(), new ScreenResolverStub1()));

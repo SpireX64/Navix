@@ -57,16 +57,16 @@ namespace Spx.Navix.UnitTests
             var screen = new ScreenStub1();
             var screenType = typeof(ScreenStub1);
             var screenStack = new ScreenStack();
-            
+
             var currentScreen = new ScreenStub2();
             screenStack.Push(screen);
             screenStack.Push(currentScreen);
 
             var command = new BackToScreenNavCommand(screenType);
-            
+
             // -- Act:
             command.Apply(navigatorMock.Object, screenStack);
-            
+
             // -- Assert:
             Assert.Equal(screen, screenStack.CurrentScreen);
             navigatorMock.Verify(
@@ -81,11 +81,11 @@ namespace Spx.Navix.UnitTests
             var stack = new ScreenStack();
             var screenType = typeof(ScreenStub1);
             var command = new BackToScreenNavCommand(screenType);
-            
+
             // -- Act & Assert:
             var exception = Assert.Throws<ScreenNotFoundException>(
                 () => command.Apply(navigatorStub, stack));
-            
+
             Assert.Equal(screenType, exception.ScreenClass.Type);
         }
 
@@ -97,10 +97,10 @@ namespace Spx.Navix.UnitTests
             var stack = new ScreenStack();
             stack.Push(new ScreenStub1());
             var command = new BackToRootNavCommand();
-            
+
             // -- Act
             command.Apply(navigatorMock.Object, stack);
-            
+
             // -- Assert:
             Assert.True(stack.IsRoot);
             Assert.Equal(0, stack.Count);
@@ -114,10 +114,10 @@ namespace Spx.Navix.UnitTests
             var navigatorMock = new Mock<Navigator>();
             var stack = new ScreenStack();
             var command = new BackToRootNavCommand();
-            
+
             // -- Act
             command.Apply(navigatorMock.Object, stack);
-            
+
             // -- Assert:
             Assert.True(stack.IsRoot);
             Assert.Equal(0, stack.Count);
@@ -135,10 +135,10 @@ namespace Spx.Navix.UnitTests
             var screenFake = new Mock<Screen>().Object;
             var resolverFake = new Mock<IScreenResolver>().Object;
             var command = new ReplaceScreenNavCommand(screenFake, resolverFake);
-            
+
             // -- Act:
             command.Apply(navigatorMock.Object, screenStack);
-            
+
             // -- Assert:
             Assert.False(screenStack.IsRoot);
             Assert.Equal(1, screenStack.Count);
@@ -149,14 +149,13 @@ namespace Spx.Navix.UnitTests
         [Fact]
         public void ReplaceScreenCommand_ApplyToRoot_ThrowsException()
         {
-            
             // -- Arrange:
             var navigatorMock = new Mock<Navigator>();
             var screenStack = new ScreenStack();
             var screenFake = new Mock<Screen>().Object;
             var resolverFake = new Mock<IScreenResolver>().Object;
             var command = new ReplaceScreenNavCommand(screenFake, resolverFake);
-            
+
             // -- Act & Assert:
             Assert.Throws<InvalidOperationException>(
                 () => command.Apply(navigatorMock.Object, screenStack));
