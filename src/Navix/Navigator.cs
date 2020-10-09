@@ -13,5 +13,20 @@ namespace Spx.Navix
         {
             throw new NotSupportedException();
         }
+
+        public virtual void BackToScreen(Type screenType)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void BackToRoot()
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Replace(Screen screen)
+        {
+            throw new NotSupportedException();
+        }
     }
 }
