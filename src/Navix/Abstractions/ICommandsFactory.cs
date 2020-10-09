@@ -7,8 +7,13 @@ namespace Spx.Navix.Abstractions
     {
         public ICollection<INavCommand> Forward(Screen screen);
         public ICollection<INavCommand> Back();
-        public ICollection<INavCommand> BackToScreen(Class<Screen> screenClass);
-        public ICollection<INavCommand> BackToRoot();
-        public ICollection<INavCommand> ReplaceScreen(Screen screen);
+
+        public ICollection<INavCommand> BackToScreen(IEnumerable<Screen> screens, NavigatorSpecification spec,
+            Class<Screen> screenClass);
+
+        public ICollection<INavCommand> BackToRoot(IEnumerable<Screen> screens, NavigatorSpecification spec);
+
+        public ICollection<INavCommand> ReplaceScreen(IEnumerable<Screen> screens, NavigatorSpecification spec,
+            Screen screen);
     }
 }
