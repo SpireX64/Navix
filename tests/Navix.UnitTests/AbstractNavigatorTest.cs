@@ -59,13 +59,13 @@ namespace Spx.Navix.UnitTests
             Assert.Throws<NotSupportedException>(
                 () => navigator.Replace(new ScreenStub1(), new ScreenResolverStub1()));
         }
-        
+
         [Fact]
         public void NavigatorSpecification_CheckDefaultValues_AllAreFalse()
         {
             // -- Arrange:
             var spec = new NavigatorSpecification();
-            
+
             // -- Assert:
             Assert.False(spec.ReplaceScreenSupported);
             Assert.False(spec.BackToRootSupported);
@@ -83,16 +83,16 @@ namespace Spx.Navix.UnitTests
 
             public AbstractNavigator()
             {
-                Specification = new NavigatorSpecification()
+                Specification = new NavigatorSpecification
                 {
                     BackToScreenSupported = true,
                     BackToRootSupported = true,
-                    ReplaceScreenSupported = true,
+                    ReplaceScreenSupported = true
                 };
             }
 
             public override NavigatorSpecification Specification { get; }
-            
+
             public override void Forward(Screen screen, IScreenResolver resolver)
             {
             }

@@ -32,56 +32,60 @@ namespace Spx.Navix.Internal.Defaults
         }
 
         public ICollection<INavCommand> BackToScreen(
-            IEnumerable<Screen> screens, 
-            NavigatorSpecification spec, 
+            IEnumerable<Screen> screens,
+            NavigatorSpecification spec,
             Class<Screen> screenClass)
         {
             var commands = new List<INavCommand>();
-            if (spec.BackToScreenSupported) 
+            if (spec.BackToScreenSupported)
+            {
                 commands.Add(new BackToScreenNavCommand(screenClass));
+            }
             else
             {
                 var position = screens
                     .Select(e => e.GetType())
                     .PositionOf<Type>(screenClass);
 
-                for (var i = 0; i < position; i++) 
+                for (var i = 0; i < position; i++)
                     commands.Add(new BackNavCommand());
             }
+
             return commands;
         }
 
         public ICollection<INavCommand> BackToRoot(
-            IEnumerable<Screen> screens, 
+            IEnumerable<Screen> screens,
             NavigatorSpecification spec)
         {
             var commands = new List<INavCommand>();
             if (spec.BackToRootSupported)
                 commands.Add(new BackToRootNavCommand());
             else
-            {
                 // ReSharper disable once PossibleMultipleEnumeration
-                for (var i = 0; i < screens.Count(); i++) 
+                for (var i = 0; i < screens.Count(); i++)
                     commands.Add(new BackNavCommand());
-            }
             return commands;
         }
 
         public ICollection<INavCommand> ReplaceScreen(
-            IEnumerable<Screen> screens, 
-            NavigatorSpecification spec, 
+            IEnumerable<Screen> screens,
+            NavigatorSpecification spec,
             Screen screen)
         {
             var resolver = _registry.Resolve(screen);
-            
+
             var commands = new List<INavCommand>();
             if (spec.ReplaceScreenSupported)
+            {
                 commands.Add(new ReplaceScreenNavCommand(screen, resolver));
+            }
             else
             {
                 commands.Add(new BackNavCommand());
                 commands.Add(new ForwardNavCommand(screen, resolver));
             }
+
             return commands;
         }
     }

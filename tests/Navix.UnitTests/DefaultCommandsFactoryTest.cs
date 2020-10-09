@@ -82,7 +82,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            var spec = new NavigatorSpecification() {BackToScreenSupported = true};
+            var spec = new NavigatorSpecification {BackToScreenSupported = true};
             var stack = new ScreenStack();
 
             // -- Act:
@@ -102,7 +102,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            var spec = new NavigatorSpecification() {BackToScreenSupported = false};
+            var spec = new NavigatorSpecification {BackToScreenSupported = false};
             var stack = new ScreenStack();
             stack.Push(new ScreenStub1());
             stack.Push(new ScreenStub2());
@@ -113,7 +113,7 @@ namespace Spx.Navix.UnitTests
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Equal(1, commands.Count);
-            
+
             var commandTypes = commands
                 .Select(e => e.GetType())
                 .ToImmutableArray();
@@ -127,7 +127,7 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            var spec = new NavigatorSpecification() {BackToRootSupported = true};
+            var spec = new NavigatorSpecification {BackToRootSupported = true};
             var stack = new ScreenStack();
 
             // -- Act:
@@ -147,19 +147,19 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
-            var spec = new NavigatorSpecification() {BackToRootSupported = false};
-            
+            var spec = new NavigatorSpecification {BackToRootSupported = false};
+
             var stack = new ScreenStack();
             stack.Push(new ScreenStub1());
             stack.Push(new ScreenStub2());
 
             // -- Act:
             var commands = factory.BackToRoot(stack, spec);
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Equal(2, commands.Count);
-            
+
             var commandTypes = commands
                 .Select(e => e.GetType())
                 .ToImmutableArray();
@@ -199,10 +199,10 @@ namespace Spx.Navix.UnitTests
             var factory = new DefaultCommandsFactory(registry);
             var spec = new NavigatorSpecification {ReplaceScreenSupported = false};
             var stack = new ScreenStack();
-            
+
             // -- Act:
             var commands = factory.ReplaceScreen(stack, spec, new ScreenStub1());
-            
+
             // -- Assert:
             Assert.NotNull(commands);
             Assert.Equal(2, commands.Count);

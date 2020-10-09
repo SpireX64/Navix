@@ -80,7 +80,7 @@ namespace Spx.Navix.UnitTests
             var screenType = typeof(ScreenStub1);
             var managerMock = new Mock<INavigationManager>();
             var spec = new NavigatorSpecification();
-            
+
             var commandsFactoryMock = new Mock<ICommandsFactory>();
             commandsFactoryMock
                 .Setup(e => e.BackToScreen(It.IsAny<IEnumerable<Screen>>(), spec, screenType))
@@ -103,7 +103,7 @@ namespace Spx.Navix.UnitTests
             var commands = new INavCommand[] { };
             var managerMock = new Mock<INavigationManager>();
             var spec = new NavigatorSpecification();
-            
+
             var cmdFactoryMock = new Mock<ICommandsFactory>();
             cmdFactoryMock
                 .Setup(e => e.BackToRoot(It.IsAny<IEnumerable<Screen>>(), spec))
@@ -127,7 +127,7 @@ namespace Spx.Navix.UnitTests
             var commands = new INavCommand[] { };
             var managerMock = new Mock<INavigationManager>();
             var spec = new NavigatorSpecification();
-            
+
             var cmdFactoryMock = new Mock<ICommandsFactory>();
             cmdFactoryMock
                 .Setup(e => e.ReplaceScreen(It.IsAny<IEnumerable<Screen>>(), spec, screen))

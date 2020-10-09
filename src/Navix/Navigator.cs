@@ -24,7 +24,5 @@ namespace Spx.Navix
         {
             throw new NotSupportedException();
         }
-        
-        
     }
 }
