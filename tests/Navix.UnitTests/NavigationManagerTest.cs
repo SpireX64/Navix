@@ -226,5 +226,56 @@ namespace Spx.Navix.UnitTests
             navigatorMock.Verify(
                 e => e.Forward(secondScreen, secondScreenResolver), Times.Once);
         }
+
+        [Fact]
+        public void NavigationManager_GetSpecificationWithoutNavigator_SpecAllFalse()
+        {
+            // -- Arrange:
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
+            
+            // -- Act:
+            var spec = manager.Specification;
+            
+            // -- Assert:
+            Assert.False(spec.ReplaceScreenSupported);
+            Assert.False(spec.BackToScreenSupported);
+            Assert.False(spec.BackToRootSupported);
+        }
+
+        [Fact]
+        public void NavigationManager_GetSpecificationWithNavigator_ReturnsNavigatorSpecs()
+        {
+            // -- Arrange:
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var spec = new NavigatorSpecification();
+            var navigatorMock = new Mock<Navigator>();
+            navigatorMock
+                .SetupGet(e => e.Specification)
+                .Returns(spec);
+            
+            var manager = new NavigationManager(registryStub);
+            
+            // -- Act:
+            var specFromManager = manager.Specification;
+            
+            // -- Assert:
+            Assert.Equal(spec, specFromManager);
+        }
+
+        [Fact]
+        public void NavigationManager_GetScreens_ReturnsEmptyEnumerableByDefault()
+        {
+            // -- Arrange:
+            var registryStub = new Mock<IScreenRegistry>().Object;
+            var manager = new NavigationManager(registryStub);
+
+            // -- Act:
+            var screens = manager.Screens;
+            
+            // -- Assert:
+            Assert.NotNull(screens);
+            Assert.Empty(screens);
+        }
     }
 }

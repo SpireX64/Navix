@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
 using Moq;
 using Spx.Navix.Abstractions;
@@ -81,9 +82,11 @@ namespace Spx.Navix.UnitTests
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
+            var spec = new NavigatorSpecification() {BackToScreenSupported = true};
+            var stack = new ScreenStack();
 
             // -- Act:
-            var commands = factory.BackToScreen(typeof(ScreenStub1));
+            var commands = factory.BackToScreen(stack, spec, typeof(ScreenStub1));
 
             // -- Assert:
             Assert.NotNull(commands);
@@ -95,13 +98,40 @@ namespace Spx.Navix.UnitTests
         }
 
         [Fact]
+        public void CommandsFactory_BackToScreenWhenNotSupported_SomeBackCommandsCreated()
+        {
+            // -- Arrange:
+            var factory = new DefaultCommandsFactory(new ScreenRegistry());
+            var spec = new NavigatorSpecification() {BackToScreenSupported = false};
+            var stack = new ScreenStack();
+            stack.Push(new ScreenStub1());
+            stack.Push(new ScreenStub2());
+
+            // -- Act:
+            var commands = factory.BackToScreen(stack, spec, typeof(ScreenStub1));
+
+            // -- Assert:
+            Assert.NotNull(commands);
+            Assert.Equal(1, commands.Count);
+            
+            var commandTypes = commands
+                .Select(e => e.GetType())
+                .ToImmutableArray();
+
+            var backCommandType = typeof(BackNavCommand);
+            Assert.True(commandTypes.All(t => t == backCommandType));
+        }
+
+        [Fact]
         public void CommandsFactory_TryCreateBackToRootCommand_CommandCreated()
         {
             // -- Arrange:
             var factory = new DefaultCommandsFactory(new ScreenRegistry());
+            var spec = new NavigatorSpecification() {BackToRootSupported = true};
+            var stack = new ScreenStack();
 
             // -- Act:
-            var commands = factory.BackToRoot();
+            var commands = factory.BackToRoot(stack, spec);
 
             // -- Assert:
             Assert.NotNull(commands);
@@ -113,15 +143,43 @@ namespace Spx.Navix.UnitTests
         }
 
         [Fact]
+        public void CommandsFactory_BackToRootWhenNotSupported_SomeBackCommandsCreated()
+        {
+            // -- Arrange:
+            var factory = new DefaultCommandsFactory(new ScreenRegistry());
+            var spec = new NavigatorSpecification() {BackToRootSupported = false};
+            
+            var stack = new ScreenStack();
+            stack.Push(new ScreenStub1());
+            stack.Push(new ScreenStub2());
+
+            // -- Act:
+            var commands = factory.BackToRoot(stack, spec);
+            
+            // -- Assert:
+            Assert.NotNull(commands);
+            Assert.Equal(2, commands.Count);
+            
+            var commandTypes = commands
+                .Select(e => e.GetType())
+                .ToImmutableArray();
+
+            var backCommandType = typeof(BackNavCommand);
+            Assert.True(commandTypes.All(t => t == backCommandType));
+        }
+
+        [Fact]
         public void CommandsFactory_TryCreateReplaceScreenCommand_CommandCreated()
         {
             // -- Arrange:
             var registry = new ScreenRegistry();
             registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
             var factory = new DefaultCommandsFactory(registry);
+            var spec = new NavigatorSpecification {ReplaceScreenSupported = true};
+            var stack = new ScreenStack();
 
             // -- Act:
-            var commands = factory.ReplaceScreen(new ScreenStub1());
+            var commands = factory.ReplaceScreen(stack, spec, new ScreenStub1());
 
             // -- Assert:
             Assert.NotNull(commands);
@@ -130,6 +188,30 @@ namespace Spx.Navix.UnitTests
             var command = commands.FirstOrDefault();
             Assert.NotNull(command);
             Assert.IsType<ReplaceScreenNavCommand>(command);
+        }
+
+        [Fact]
+        public void CommandsFactory_ReplaceWhenNotSupported_BackAndForwardCommandsCreated()
+        {
+            // -- Arrange:
+            var registry = new ScreenRegistry();
+            registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
+            var factory = new DefaultCommandsFactory(registry);
+            var spec = new NavigatorSpecification {ReplaceScreenSupported = false};
+            var stack = new ScreenStack();
+            
+            // -- Act:
+            var commands = factory.ReplaceScreen(stack, spec, new ScreenStub1());
+            
+            // -- Assert:
+            Assert.NotNull(commands);
+            Assert.Equal(2, commands.Count);
+
+            var commandTypes = commands
+                .Select(e => e.GetType())
+                .ToImmutableArray();
+            Assert.Equal(typeof(BackNavCommand), commandTypes[0]);
+            Assert.Equal(typeof(ForwardNavCommand), commandTypes[1]);
         }
     }
 }

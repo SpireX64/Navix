@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Moq;
 using Spx.Navix.Abstractions;
 using Spx.Navix.Internal.Defaults;
@@ -78,9 +79,11 @@ namespace Spx.Navix.UnitTests
             var commands = new INavCommand[] { };
             var screenType = typeof(ScreenStub1);
             var managerMock = new Mock<INavigationManager>();
+            var spec = new NavigatorSpecification();
+            
             var commandsFactoryMock = new Mock<ICommandsFactory>();
             commandsFactoryMock
-                .Setup(e => e.BackToScreen(screenType))
+                .Setup(e => e.BackToScreen(It.IsAny<IEnumerable<Screen>>(), spec, screenType))
                 .Returns(commands);
 
             var router = new DefaultRouter(managerMock.Object, commandsFactoryMock.Object);
@@ -89,7 +92,7 @@ namespace Spx.Navix.UnitTests
             router.BackToScreen(screenType);
 
             // -- Assert:
-            commandsFactoryMock.Verify(e => e.BackToScreen(screenType));
+            commandsFactoryMock.Verify(e => e.BackToScreen(It.IsAny<IEnumerable<Screen>>(), spec, screenType));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
         }
 
@@ -99,9 +102,11 @@ namespace Spx.Navix.UnitTests
             // -- Arrange:
             var commands = new INavCommand[] { };
             var managerMock = new Mock<INavigationManager>();
+            var spec = new NavigatorSpecification();
+            
             var cmdFactoryMock = new Mock<ICommandsFactory>();
             cmdFactoryMock
-                .Setup(e => e.BackToRoot())
+                .Setup(e => e.BackToRoot(It.IsAny<IEnumerable<Screen>>(), spec))
                 .Returns(commands);
 
             var router = new DefaultRouter(managerMock.Object, cmdFactoryMock.Object);
@@ -110,7 +115,7 @@ namespace Spx.Navix.UnitTests
             router.BackToRoot();
 
             // -- Assert
-            cmdFactoryMock.Verify(e => e.BackToRoot());
+            cmdFactoryMock.Verify(e => e.BackToRoot(It.IsAny<IEnumerable<Screen>>(), spec));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
         }
 
@@ -121,9 +126,11 @@ namespace Spx.Navix.UnitTests
             var screen = new ScreenStub1();
             var commands = new INavCommand[] { };
             var managerMock = new Mock<INavigationManager>();
+            var spec = new NavigatorSpecification();
+            
             var cmdFactoryMock = new Mock<ICommandsFactory>();
             cmdFactoryMock
-                .Setup(e => e.ReplaceScreen(screen))
+                .Setup(e => e.ReplaceScreen(It.IsAny<IEnumerable<Screen>>(), spec, screen))
                 .Returns(commands);
 
             var router = new DefaultRouter(managerMock.Object, cmdFactoryMock.Object);
@@ -132,7 +139,7 @@ namespace Spx.Navix.UnitTests
             router.Replace(screen);
 
             // -- Assert:
-            cmdFactoryMock.Verify(e => e.ReplaceScreen(screen));
+            cmdFactoryMock.Verify(e => e.ReplaceScreen(It.IsAny<IEnumerable<Screen>>(), spec, screen));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
         }
     }

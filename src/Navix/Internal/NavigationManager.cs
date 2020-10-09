@@ -20,6 +20,9 @@ namespace Spx.Navix.Internal
         }
 
         public bool HasPendingCommands => _pendingCommands.Count > 0;
+        public IEnumerable<Screen> Screens => _screens;
+
+        public NavigatorSpecification Specification { get; private set; }
 
         public void SendCommands(IEnumerable<INavCommand> navCommands)
         {
@@ -43,6 +46,8 @@ namespace Spx.Navix.Internal
         {
             Navigator = navigator
                         ?? throw new ArgumentNullException(nameof(navigator));
+
+            Specification = navigator.Specification;
 
             ApplyPendingCommands();
         }
