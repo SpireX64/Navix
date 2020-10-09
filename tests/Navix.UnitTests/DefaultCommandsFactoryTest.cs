@@ -111,5 +111,25 @@ namespace Spx.Navix.UnitTests
             Assert.NotNull(command);
             Assert.IsType<BackToRootNavCommand>(command);
         }
+
+        [Fact]
+        public void CommandsFactory_TryCreateReplaceScreenCommand_CommandCreated()
+        {
+            // -- Arrange:
+            var registry = new ScreenRegistry();
+            registry.Register(typeof(ScreenStub1), new ScreenResolverStub1());
+            var factory = new DefaultCommandsFactory(registry);
+            
+            // -- Act:
+            var commands = factory.ReplaceScreen(new ScreenStub1());
+            
+            // -- Assert:
+            Assert.NotNull(commands);
+            Assert.Single(commands);
+
+            var command = commands.FirstOrDefault();
+            Assert.NotNull(command);
+            Assert.IsType<ReplaceScreenNavCommand>(command);
+        }
     }
 }

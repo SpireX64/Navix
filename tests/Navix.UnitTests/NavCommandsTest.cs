@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using Spx.Navix.Commands;
 using Spx.Navix.Exceptions;
 using Spx.Navix.UnitTests.Stubs;
@@ -121,6 +122,44 @@ namespace Spx.Navix.UnitTests
             Assert.True(stack.IsRoot);
             Assert.Equal(0, stack.Count);
             navigatorMock.Verify(e => e.BackToRoot(), Times.Never);
+        }
+
+        [Fact]
+        public void ReplaceScreenCommand_Apply_InvokeReplace()
+        {
+            // -- Arrange:
+            var navigatorMock = new Mock<Navigator>();
+            var screenStack = new ScreenStack();
+            screenStack.Push(new ScreenStub1());
+
+            var screenFake = new Mock<Screen>().Object;
+            var resolverFake = new Mock<IScreenResolver>().Object;
+            var command = new ReplaceScreenNavCommand(screenFake, resolverFake);
+            
+            // -- Act:
+            command.Apply(navigatorMock.Object, screenStack);
+            
+            // -- Assert:
+            Assert.False(screenStack.IsRoot);
+            Assert.Equal(1, screenStack.Count);
+            Assert.Equal(screenFake, screenStack.CurrentScreen);
+            navigatorMock.Verify(e => e.Replace(screenFake, resolverFake), Times.Once);
+        }
+
+        [Fact]
+        public void ReplaceScreenCommand_ApplyToRoot_ThrowsException()
+        {
+            
+            // -- Arrange:
+            var navigatorMock = new Mock<Navigator>();
+            var screenStack = new ScreenStack();
+            var screenFake = new Mock<Screen>().Object;
+            var resolverFake = new Mock<IScreenResolver>().Object;
+            var command = new ReplaceScreenNavCommand(screenFake, resolverFake);
+            
+            // -- Act & Assert:
+            Assert.Throws<InvalidOperationException>(
+                () => command.Apply(navigatorMock.Object, screenStack));
         }
     }
 }

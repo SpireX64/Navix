@@ -9,5 +9,6 @@ namespace Spx.Navix.Abstractions
         public ICollection<INavCommand> Back();
         public ICollection<INavCommand> BackToScreen(Class<Screen> screenClass);
         public ICollection<INavCommand> BackToRoot();
+        public ICollection<INavCommand> ReplaceScreen(Screen screen);
     }
 }

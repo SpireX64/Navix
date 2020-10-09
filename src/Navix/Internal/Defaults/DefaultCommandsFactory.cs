@@ -40,5 +40,12 @@ namespace Spx.Navix.Internal.Defaults
             var command = new BackToRootNavCommand();
             return new[] {command};
         }
+
+        public ICollection<INavCommand> ReplaceScreen(Screen screen)
+        {
+            var resolver = _registry.Resolve(screen);
+            var command = new ReplaceScreenNavCommand(screen, resolver);
+            return new[] {command};
+        }
     }
 }
