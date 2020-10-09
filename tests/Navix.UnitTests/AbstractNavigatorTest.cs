@@ -8,25 +8,23 @@ namespace Spx.Navix.UnitTests
     public class AbstractNavigatorTest
     {
         [Fact]
-        public void Navigator_TryForward_ThrowsNotImpl()
+        public void Navigator_TryForward_NoThrow()
         {
             // -- Arrange:
             var navigator = new AbstractNavigator();
 
             // -- Act & Assert:
-            Assert.Throws<NotImplementedException>(
-                () => navigator.Forward(null!, null!));
+            navigator.Forward(null!, null!);
         }
 
         [Fact]
-        public void Navigator_TryBack_ThrowsNotSupported()
+        public void Navigator_TryBack_NoThrow()
         {
             // -- Arrange:
             var navigator = new AbstractNavigator();
 
             // -- Act & Assert:
-            Assert.Throws<NotSupportedException>(
-                () => navigator.Back());
+            navigator.Back();
         }
 
         [Fact]
@@ -94,6 +92,14 @@ namespace Spx.Navix.UnitTests
             }
 
             public override NavigatorSpecification Specification { get; }
+            
+            public override void Forward(Screen screen, IScreenResolver resolver)
+            {
+            }
+
+            public override void Back()
+            {
+            }
         }
     }
 }

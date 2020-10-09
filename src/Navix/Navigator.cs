@@ -5,16 +5,10 @@ namespace Spx.Navix
     public abstract class Navigator
     {
         public abstract NavigatorSpecification Specification { get; }
-        
-        public virtual void Forward(Screen screen, IScreenResolver resolver)
-        {
-            throw new NotImplementedException();
-        }
 
-        public virtual void Back()
-        {
-            throw new NotSupportedException();
-        }
+        public abstract void Forward(Screen screen, IScreenResolver resolver);
+
+        public abstract void Back();
 
         public virtual void BackToScreen(Screen screen)
         {
