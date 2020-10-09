@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Spx.Navix.Abstractions;
 using Spx.Navix.Commands;
+using Spx.Reflection;
 
 namespace Spx.Navix.Internal.Defaults
 {
@@ -25,6 +26,12 @@ namespace Spx.Navix.Internal.Defaults
         public ICollection<INavCommand> Back()
         {
             var command = new BackNavCommand();
+            return new[] {command};
+        }
+
+        public ICollection<INavCommand> BackToScreen(Class<Screen> screenClass)
+        {
+            var command = new BackToScreenNavCommand(screenClass);
             return new[] {command};
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Spx.Navix.UnitTests.Stubs;
 using Xunit;
 
 namespace Spx.Navix.UnitTests
@@ -25,6 +26,17 @@ namespace Spx.Navix.UnitTests
             // -- Act & Assert:
             Assert.Throws<NotSupportedException>(
                 () => navigator.Back());
+        }
+        
+        [Fact]
+        public void Navigator_TryBackToScreen_ThrowsNotSupported()
+        {
+            // -- Arrange:
+            var navigator = new AbstractNavigator();
+
+            // -- Act & Assert:
+            Assert.Throws<NotSupportedException>(
+                () => navigator.BackToScreen(new ScreenStub1()));
         }
 
         private class AbstractNavigator : Navigator

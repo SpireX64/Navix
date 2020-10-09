@@ -1,5 +1,6 @@
 ﻿using System;
 using Spx.Navix.Abstractions;
+using Spx.Reflection;
 
 namespace Spx.Navix.Internal.Defaults
 {
@@ -26,6 +27,12 @@ namespace Spx.Navix.Internal.Defaults
         public void Back()
         {
             var commands = _commandsFactory.Back();
+            _navigationManager.SendCommands(commands);
+        }
+
+        public void BackToScreen(Class<Screen> screenClass)
+        {
+            var commands = _commandsFactory.BackToScreen(screenClass);
             _navigationManager.SendCommands(commands);
         }
     }

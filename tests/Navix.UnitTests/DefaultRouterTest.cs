@@ -70,5 +70,27 @@ namespace Spx.Navix.UnitTests
             commandsFactoryMock.Verify(e => e.Back());
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
         }
+
+        [Fact]
+        public void DefaultRouter_NavigateBackToScreen_SendBackToScreenCommand()
+        {
+            // -- Arrange:
+            var commands = new INavCommand[] { };
+            var screenType = typeof(ScreenStub1);
+            var managerMock = new Mock<INavigationManager>();
+            var commandsFactoryMock = new Mock<ICommandsFactory>();
+            commandsFactoryMock
+                .Setup(e => e.BackToScreen(screenType))
+                .Returns(commands);
+
+            var router = new DefaultRouter(managerMock.Object, commandsFactoryMock.Object);
+            
+            // -- Act:
+            router.BackToScreen(screenType);
+            
+            // -- Assert:
+            commandsFactoryMock.Verify(e => e.BackToScreen(screenType));
+            managerMock.Verify(e => e.SendCommands(commands), Times.Once);
+        }
     }
 }
