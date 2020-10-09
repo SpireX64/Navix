@@ -105,5 +105,22 @@ namespace Spx.Navix.UnitTests
             Assert.Equal(0, stack.Count);
             navigatorMock.Verify(e => e.BackToRoot(), Times.Once);
         }
+
+        [Fact]
+        public void BackToRootCommand_ApplyOnRoot_Ignored()
+        {
+            // -- Arrange:
+            var navigatorMock = new Mock<Navigator>();
+            var stack = new ScreenStack();
+            var command = new BackToRootNavCommand();
+            
+            // -- Act
+            command.Apply(navigatorMock.Object, stack);
+            
+            // -- Assert:
+            Assert.True(stack.IsRoot);
+            Assert.Equal(0, stack.Count);
+            navigatorMock.Verify(e => e.BackToRoot(), Times.Never);
+        }
     }
 }
