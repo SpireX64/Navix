@@ -142,5 +142,26 @@ namespace Spx.Navix.UnitTests
             cmdFactoryMock.Verify(e => e.ReplaceScreen(It.IsAny<IEnumerable<Screen>>(), spec, screen));
             managerMock.Verify(e => e.SendCommands(commands), Times.Once);
         }
+
+        [Fact]
+        public void DefaultRouter_GetScreens_ReturnsCurrentScreens()
+        {
+            // -- Arrange:
+            var stack = new ScreenStack();
+            var managerMock = new Mock<INavigationManager>();
+            managerMock
+                .SetupGet(e => e.Screens)
+                .Returns(stack);
+            
+            var cmdFactoryStub = new Mock<ICommandsFactory>().Object;
+            var router = new DefaultRouter(managerMock.Object, cmdFactoryStub);
+            
+            // -- Act:
+            var screens = router.Screens;
+            
+            // -- Assert:
+            Assert.NotNull(screens);
+            Assert.Equal(stack, screens);
+        }
     }
 }
