@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Spx.Navix.Abstractions;
 using Spx.Reflection;
 
@@ -8,6 +9,8 @@ namespace Spx.Navix.Internal.Defaults
     {
         private readonly ICommandsFactory _commandsFactory;
         private readonly INavigationManager _navigationManager;
+
+        public IEnumerable<Screen> Screens => _navigationManager.Screens;
 
         public DefaultRouter(INavigationManager navigationManager, ICommandsFactory commandsFactory)
         {

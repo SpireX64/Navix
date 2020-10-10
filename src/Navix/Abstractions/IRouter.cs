@@ -1,4 +1,5 @@
-﻿using Spx.Reflection;
+﻿using System.Collections.Generic;
+using Spx.Reflection;
 
 namespace Spx.Navix.Abstractions
 {
@@ -7,6 +8,8 @@ namespace Spx.Navix.Abstractions
     /// </summary>
     public interface IRouter
     {
+        IEnumerable<Screen> Screens { get; }
+        
         /// <summary>
         /// Open new screen and add it to the screens sequence.
         /// </summary>
