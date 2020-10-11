@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Spx.Navix.AndroidX</id>
+    <version>0.0.1</version>
+    <title>Navix.AndroidX</title>
+    <authors>SpireX (Artem Sobolenkov)</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">BSD-3-Clause License</license>
+    <projectUrl>https://github.com/SpireX64/Navix</projectUrl>
+    <description>Navix library for AndroidX</description>
+    <copyright>SpireX (c) 2020</copyright>
+    <tags>navigation, xamarin, dotnet, library, android, androidx, navix, spirex, spx</tags>
+    <repository url="https://github.com/SpireX64/Navix" type="public"/>
+    <dependencies>
+      <dependency id="Spx.Navix" version="0.0.1"/> 
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Release/Navix.Xamarin.AndroidX.dll" 
+          target="lib/MonoAndroid/Navix.Xamarin.AndroidX.dll"/>
+  </files>
+</package>

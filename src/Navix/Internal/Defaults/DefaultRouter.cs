@@ -10,8 +10,6 @@ namespace Spx.Navix.Internal.Defaults
         private readonly ICommandsFactory _commandsFactory;
         private readonly INavigationManager _navigationManager;
 
-        public IEnumerable<Screen> Screens => _navigationManager.Screens;
-
         public DefaultRouter(INavigationManager navigationManager, ICommandsFactory commandsFactory)
         {
             _navigationManager = navigationManager
@@ -20,6 +18,8 @@ namespace Spx.Navix.Internal.Defaults
             _commandsFactory = commandsFactory
                                ?? throw new ArgumentNullException(nameof(commandsFactory));
         }
+
+        public IEnumerable<Screen> Screens => _navigationManager.Screens;
 
         public void Forward(Screen screen)
         {
