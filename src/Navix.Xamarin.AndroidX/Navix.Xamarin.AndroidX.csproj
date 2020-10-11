@@ -49,18 +49,11 @@
     <Compile Include="AndroidNavigator.cs" />
     <Compile Include="IActivityScreenResolver.cs" />
     <Compile Include="IFragmentScreenResolver.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Navix" Version="0.0.1" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

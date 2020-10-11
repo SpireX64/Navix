@@ -431,3 +431,6 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## Ignored
+src/Navix.Xamarin.AndroidX/Resources/Resource.designer.cs
