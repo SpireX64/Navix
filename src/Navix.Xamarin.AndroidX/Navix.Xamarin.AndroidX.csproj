@@ -53,9 +53,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AboutResources.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Navix" Version="0.0.1" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0" />
   </ItemGroup>

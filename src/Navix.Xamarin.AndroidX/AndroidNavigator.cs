@@ -4,6 +4,9 @@ using AndroidX.Fragment.App;
 
 namespace Spx.Navix.Xamarin.AndroidX
 {
+    /// <summary>
+    /// Navix navigator for AndroidX
+    /// </summary>
     public class AndroidNavigator : Navigator
     {
         private readonly FragmentActivity _activity;
