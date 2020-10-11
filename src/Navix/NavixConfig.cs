@@ -6,7 +6,7 @@ using Spx.Navix.Internal.Defaults;
 namespace Spx.Navix
 {
     /// <summary>
-    /// Class for configuring the navigation system
+    ///     Class for configuring the navigation system
     /// </summary>
     public abstract class NavixConfig
     {
@@ -15,13 +15,13 @@ namespace Spx.Navix
         internal IReadOnlyCollection<INavigationMiddleware> Middlewares => _middlewares;
 
         /// <summary>
-        /// Navigation configuration
+        ///     Navigation configuration
         /// </summary>
         /// <param name="registry">Screens registry</param>
         public abstract void Configure(IScreenRegistry registry);
 
         /// <summary>
-        /// Allows to override the used navigation commands factory
+        ///     Allows to override the used navigation commands factory
         /// </summary>
         /// <param name="registry">Screens registry</param>
         /// <returns>Navigation commands factory instance</returns>
@@ -32,7 +32,7 @@ namespace Spx.Navix
         }
 
         /// <summary>
-        /// Allows to override the used router
+        ///     Allows to override the used router
         /// </summary>
         /// <param name="navigationManager">Navigation manager</param>
         /// <param name="commandsFactory">Navigation commands factory</param>
@@ -44,7 +44,7 @@ namespace Spx.Navix
         }
 
         /// <summary>
-        /// Adds middleware to the navigation command execution pipeline
+        ///     Adds middleware to the navigation command execution pipeline
         /// </summary>
         /// <param name="middleware">Middleware</param>
         protected void AddMiddleware(INavigationMiddleware middleware)

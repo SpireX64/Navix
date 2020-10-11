@@ -7,12 +7,10 @@ namespace Spx.Navix.Xamarin.AndroidX
     public class AndroidNavigator : Navigator
     {
         private readonly FragmentActivity _activity;
-        private readonly FragmentManager _fragmentManager;
         private readonly int _containerId;
+        private readonly FragmentManager _fragmentManager;
 
         private readonly Stack<Screen> _internalFragmentsStack = new Stack<Screen>();
-
-        public override NavigatorSpecification Specification { get; } = new NavigatorSpecification();
 
         public AndroidNavigator([NonNull] FragmentActivity activity, [NonNull] FragmentManager fragmentManager,
             [IdRes] int containerId)
@@ -28,6 +26,8 @@ namespace Spx.Navix.Xamarin.AndroidX
             _fragmentManager = activity.SupportFragmentManager;
             _containerId = containerId;
         }
+
+        public override NavigatorSpecification Specification { get; } = new NavigatorSpecification();
 
         public override void Forward(Screen screen, IScreenResolver resolver)
         {
@@ -52,16 +52,15 @@ namespace Spx.Navix.Xamarin.AndroidX
                 _internalFragmentsStack.Pop();
             }
             else
+            {
                 _activity.Finish();
+            }
         }
 
         private void ForwardActivity(Screen screen, IActivityScreenResolver resolver)
         {
             var intent = resolver.GetActivityIntent(screen, _activity);
-            if (intent.ResolveActivity(_activity.PackageManager) != null)
-            {
-                _activity.StartActivity(intent);
-            }
+            if (intent.ResolveActivity(_activity.PackageManager) != null) _activity.StartActivity(intent);
         }
 
         private void ForwardFragment(Screen screen, IFragmentScreenResolver resolver)

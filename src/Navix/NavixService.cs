@@ -5,8 +5,8 @@ using Spx.Navix.Internal;
 namespace Spx.Navix
 {
     /// <summary>
-    /// The core of the Navix system.
-    /// Used to initialize and maintain system components.
+    ///     The core of the Navix system.
+    ///     Used to initialize and maintain system components.
     /// </summary>
     public sealed class NavixService
     {
@@ -28,12 +28,12 @@ namespace Spx.Navix
         }
 
         /// <summary>
-        /// The interface for high-level navigation
+        ///     The interface for high-level navigation
         /// </summary>
         public IRouter Router { get; }
 
         /// <summary>
-        /// Navigator holder
+        ///     Navigator holder
         /// </summary>
         public INavigatorHolder NavigatorHolder => _navigationManager;
     }

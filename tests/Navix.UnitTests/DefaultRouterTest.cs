@@ -152,13 +152,13 @@ namespace Spx.Navix.UnitTests
             managerMock
                 .SetupGet(e => e.Screens)
                 .Returns(stack);
-            
+
             var cmdFactoryStub = new Mock<ICommandsFactory>().Object;
             var router = new DefaultRouter(managerMock.Object, cmdFactoryStub);
-            
+
             // -- Act:
             var screens = router.Screens;
-            
+
             // -- Assert:
             Assert.NotNull(screens);
             Assert.Equal(stack, screens);
