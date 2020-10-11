@@ -57,7 +57,7 @@ namespace Spx.Navix.Xamarin.AndroidX
 
         private void ForwardActivity(Screen screen, IActivityScreenResolver resolver)
         {
-            var intent = resolver.GetActivityIntent(screen);
+            var intent = resolver.GetActivityIntent(screen, _activity);
             if (intent.ResolveActivity(_activity.PackageManager) != null)
             {
                 _activity.StartActivity(intent);

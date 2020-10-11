@@ -5,6 +5,6 @@ namespace Spx.Navix.Xamarin.AndroidX
 {
     public interface IActivityScreenResolver: IScreenResolver
     {
-        Intent GetActivityIntent(Screen screen);
+        Intent GetActivityIntent(Screen screen, Context context);
     }
 }
