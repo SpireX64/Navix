@@ -45,7 +45,13 @@ namespace Spx.Navix.Xamarin.AndroidLegacy
 
         public override void Back()
         {
-            throw new NotImplementedException();
+            if (_internalFragmentStack.Count > 0)
+            {
+                _fragmentManager.PopBackStack();
+                _internalFragmentStack.Pop();
+            }
+            else
+                _activity.Finish();
         }
 
         private void ForwardActivity(Screen screen, IActivityScreenResolver resolver)
