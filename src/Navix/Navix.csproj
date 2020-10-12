@@ -1,10 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Title>Navix</Title>
+	<Description>Cross-platform navigation library for .NET</Description>
+	<PackageIcon>icons\navix-128.png</PackageIcon>
+	<RootNamespace>Navix</RootNamespace>
+    <Authors>SpireX (Artem Sobolenkov)</Authors>
+	<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+    <PackageVersion>0.0.1</PackageVersion>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+    <PackageProjectUrl>https://github.com/SpireX64/Navix</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SpireX64/Navix</RepositoryUrl>
+    <RepositoryType>public</RepositoryType>
+    <PackageTags>navigation, dotnet, library, cross-platform, navix, spirex, spx</PackageTags>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Spx.Navix</RootNamespace>
     <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
+    <Copyright>SpireX (c) 2020</Copyright>
   </PropertyGroup>
 
+	<ItemGroup>
+        <None Include="icons/navix-128.png" Pack="true" PackagePath="icons/navix-128.png" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Spx.Core" Version="0.0.1" />
+  </ItemGroup>
 </Project>

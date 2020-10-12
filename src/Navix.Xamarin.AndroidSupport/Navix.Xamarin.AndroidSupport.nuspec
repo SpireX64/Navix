@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Navix.Xamarin.AndroidSupport</id>
+    <version>0.0.1</version>
+    <title>Navix.Xamarin.AndroidSupport</title>
+	<icon>icon.png</icon>
+    <authors>SpireX (Artem Sobolenkov)</authors>
+	<owners>SpireX (Artem Sobolenkov)</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">BSD-3-Clause</license>
+    <projectUrl>https://github.com/SpireX64/Navix</projectUrl>
+    <description>Navix library for Xamarin Android Support v7</description>
+    <copyright>SpireX (c) 2020</copyright>
+    <tags>navigation, xamarin, dotnet, library, android, support, navix, spirex, spx</tags>
+	<repository url="https://github.com/SpireX64/Navix" type="public"/>
+	<dependencies>
+		<group targetFramework="MonoAndroid5.0">
+			<dependency id="Spx.Navix" version="0.0.1"/>
+			<dependency id="Xamarin.Android.Support.v7.AppCompat" version="28.0.0.3"/>
+		</group>
+	</dependencies>
+  </metadata>
+  <files>
+	  <file src="icons/navix-128.png" target="icon.png"/>
+      <file src="bin/Release/Navix.Xamarin.AndroidSupport.dll"
+            target="lib/MonoAndroid50/Navix.Xamarin.AndroidSupport.dll"/>
+  </files>
+</package>
