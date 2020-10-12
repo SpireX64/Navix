@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navix.Xamarin.AndroidX", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navix.Xamarin.AndroidSupport", "src\Navix.Xamarin.AndroidSupport\Navix.Xamarin.AndroidSupport.csproj", "{6CDC820A-DB20-4637-8781-2F86159F225A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navix.Xamarin.AndroidLegacy", "src\Navix.Xamarin.AndroidLegacy\Navix.Xamarin.AndroidLegacy.csproj", "{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,18 @@ Global
 		{6CDC820A-DB20-4637-8781-2F86159F225A}.Release|x64.Build.0 = Release|Any CPU
 		{6CDC820A-DB20-4637-8781-2F86159F225A}.Release|x86.ActiveCfg = Release|Any CPU
 		{6CDC820A-DB20-4637-8781-2F86159F225A}.Release|x86.Build.0 = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|x64.Build.0 = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Debug|x86.Build.0 = Debug|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|x64.ActiveCfg = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|x64.Build.0 = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|x86.ActiveCfg = Release|Any CPU
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +96,7 @@ Global
 		{03526F19-F955-4E56-B577-14BEDE5C51A2} = {D348FD64-4C56-4543-862B-FBEB7DF1F6FE}
 		{F5BC613A-B71E-4202-8015-DE8E9D7761AC} = {7DFFBB0F-504F-448A-8B61-7E0C14D5B02A}
 		{6CDC820A-DB20-4637-8781-2F86159F225A} = {7DFFBB0F-504F-448A-8B61-7E0C14D5B02A}
+		{35ED2800-E271-4AE3-BD8A-D8EF02B0DB82} = {7DFFBB0F-504F-448A-8B61-7E0C14D5B02A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {102DD7E4-BA37-45C2-8AF7-35B317D71232}
