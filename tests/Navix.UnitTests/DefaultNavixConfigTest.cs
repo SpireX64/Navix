@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Moq;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Internal;
-using Spx.Navix.Internal.Defaults;
+using Navix.Abstractions;
+using Navix.Internal;
+using Navix.Internal.Defaults;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class DefaultNavixConfigTest
     {
@@ -58,7 +58,7 @@ namespace Spx.Navix.UnitTests
         [ExcludeFromCodeCoverage]
         private class DefaultNavixConfig : NavixConfig
         {
-            public INavigationMiddleware? Middleware { get; set; } = null;
+            public INavigationMiddleware? Middleware { get; set; }
 
             public override void Configure(IScreenRegistry registry)
             {

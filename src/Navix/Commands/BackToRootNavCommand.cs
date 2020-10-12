@@ -1,6 +1,6 @@
-﻿using Spx.Navix.Abstractions;
+﻿using Navix.Abstractions;
 
-namespace Spx.Navix.Commands
+namespace Navix.Commands
 {
     public class BackToRootNavCommand : INavCommand
     {

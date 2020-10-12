@@ -4,7 +4,7 @@
     <Title>Navix</Title>
 	<Description>Cross-platform navigation library for .NET</Description>
 	<PackageIcon>icons\navix-128.png</PackageIcon>
-	<RootNamespace>Spx.Navix</RootNamespace>
+	<RootNamespace>Navix</RootNamespace>
     <Authors>SpireX (Artem Sobolenkov)</Authors>
 	<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     <PackageVersion>0.0.1</PackageVersion>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-        <None Include="icons/navix-128.png" Pack="true" PackagePath="icons/navix-128.png"/>
+        <None Include="icons/navix-128.png" Pack="true" PackagePath="icons/navix-128.png" />
 	</ItemGroup>
 	
   <ItemGroup>

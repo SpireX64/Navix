@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix
+﻿namespace Navix
 {
     /// <summary>
     ///     Interface containing information on how to open a screen on a specific platform

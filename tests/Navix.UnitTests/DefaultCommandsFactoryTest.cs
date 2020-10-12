@@ -2,14 +2,14 @@
 using System.Collections.Immutable;
 using System.Linq;
 using Moq;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Commands;
-using Spx.Navix.Internal;
-using Spx.Navix.Internal.Defaults;
-using Spx.Navix.UnitTests.Stubs;
+using Navix.Abstractions;
+using Navix.Commands;
+using Navix.Internal;
+using Navix.Internal.Defaults;
+using Navix.UnitTests.Stubs;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class DefaultCommandsFactoryTest
     {

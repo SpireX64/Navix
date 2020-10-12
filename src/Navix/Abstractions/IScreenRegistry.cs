@@ -1,7 +1,7 @@
 ﻿using System;
 using Spx.Reflection;
 
-namespace Spx.Navix.Abstractions
+namespace Navix.Abstractions
 {
     /// <summary>
     ///     Screen registry

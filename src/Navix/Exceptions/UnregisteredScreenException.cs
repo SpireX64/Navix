@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Spx.Navix.Exceptions
+namespace Navix.Exceptions
 {
     public class UnregisteredScreenException : NotImplementedException
     {

@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix.Abstractions
+﻿namespace Navix.Abstractions
 {
     /// <summary>
     ///     This is a special software, embedded in the Navix pipeline,

@@ -1,11 +1,11 @@
 ﻿using System;
 using Moq;
-using Spx.Navix.Commands;
-using Spx.Navix.Exceptions;
-using Spx.Navix.UnitTests.Stubs;
+using Navix.Commands;
+using Navix.Exceptions;
+using Navix.UnitTests.Stubs;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class NavCommandsTest
     {

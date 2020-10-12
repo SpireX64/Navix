@@ -1,7 +1,7 @@
-﻿using Android.App;
-#pragma warning disable 618
+﻿#pragma warning disable 618
+using Android.App;
 
-namespace Spx.Navix.Xamarin.AndroidLegacy
+namespace Navix.Xamarin.AndroidLegacy
 {
     interface IFragmentScreenResolver: IScreenResolver
     {

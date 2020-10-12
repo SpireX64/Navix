@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using AndroidX.Annotations;
 
-namespace Spx.Navix.Xamarin.AndroidX
+namespace Navix.Xamarin.AndroidX
 {
     public interface IActivityScreenResolver : IScreenResolver
     {

@@ -15,13 +15,15 @@
     <tags>navigation, xamarin, dotnet, library, android, androidx, navix, spirex, spx</tags>
     <repository url="https://github.com/SpireX64/Navix" type="public"/>
     <dependencies>
-      <dependency id="Spx.Navix" version="0.0.1"/> 
-      <dependency id="Xamarin.AndroidX.AppCompat" version="1.2.0"/> 
+		<group targetFramework="MonoAndroid5.0">
+		    <dependency id="Spx.Navix" version="0.0.1"/> 
+			<dependency id="Xamarin.AndroidX.AppCompat" version="1.2.0"/>
+		</group>
     </dependencies>
   </metadata>
   <files>
 	<file src="icons/navix-128.png" target="icon.png"/>
     <file src="bin/Release/Navix.Xamarin.AndroidX.dll" 
-          target="lib/MonoAndroid/Navix.Xamarin.AndroidX.dll"/>
+          target="lib/MonoAndroid50/Navix.Xamarin.AndroidX.dll"/>
   </files>
 </package>

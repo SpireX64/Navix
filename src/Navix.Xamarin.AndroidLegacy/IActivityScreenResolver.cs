@@ -1,6 +1,7 @@
 ﻿using Android.Content;
+using Navix;
 
-namespace Spx.Navix.Xamarin.AndroidLegacy
+namespace Navix.Xamarin.AndroidLegacy
 {
     public interface IActivityScreenResolver: IScreenResolver
     {

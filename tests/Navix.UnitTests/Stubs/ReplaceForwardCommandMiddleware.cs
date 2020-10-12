@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Commands;
+using Navix.Abstractions;
+using Navix.Commands;
 
-namespace Spx.Navix.UnitTests.Stubs
+namespace Navix.UnitTests.Stubs
 {
     [ExcludeFromCodeCoverage]
     public class ReplaceForwardCommandMiddleware : INavigationMiddleware

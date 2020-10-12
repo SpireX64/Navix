@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Spx.Navix.UnitTests</RootNamespace>
+    <RootNamespace>Navix.UnitTests</RootNamespace>
 
     <Nullable>enable</Nullable>
   </PropertyGroup>

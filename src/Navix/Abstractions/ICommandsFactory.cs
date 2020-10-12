@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Spx.Reflection;
 
-namespace Spx.Navix.Abstractions
+namespace Navix.Abstractions
 {
     /// <summary>
     ///     Responsible for generating commands depending on the conditions of the request and the environment

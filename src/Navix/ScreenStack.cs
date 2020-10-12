@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace Spx.Navix
+namespace Navix
 {
     public sealed class ScreenStack : IEnumerable<Screen>
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Navix.Abstractions;
+using Navix.Commands;
 using Spx.Collections.Linq;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Commands;
 using Spx.Reflection;
 
-namespace Spx.Navix.Internal.Defaults
+namespace Navix.Internal.Defaults
 {
     internal sealed class DefaultCommandsFactory : ICommandsFactory
     {

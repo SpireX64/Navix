@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Spx.Navix.Abstractions;
+using Navix.Abstractions;
 
-namespace Spx.Navix
+namespace Navix
 {
     /// <summary>
     ///     Controls navigation

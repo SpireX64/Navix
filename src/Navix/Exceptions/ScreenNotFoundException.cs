@@ -1,7 +1,7 @@
 ﻿using System;
 using Spx.Reflection;
 
-namespace Spx.Navix.Exceptions
+namespace Navix.Exceptions
 {
     public class ScreenNotFoundException : InvalidOperationException
     {

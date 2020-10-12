@@ -1,7 +1,7 @@
 ﻿using Android.Support.Annotation;
 using Android.Support.V4.App;
 
-namespace Spx.Navix.Xamarin.AndroidSupport
+namespace Navix.Xamarin.AndroidSupport
 {
     public interface IFragmentScreenResolver: IScreenResolver
     {

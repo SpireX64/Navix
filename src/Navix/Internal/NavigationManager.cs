@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Spx.Navix.Abstractions;
+using Navix.Abstractions;
 
-namespace Spx.Navix.Internal
+namespace Navix.Internal
 {
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {

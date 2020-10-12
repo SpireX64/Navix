@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix.Abstractions
+﻿namespace Navix.Abstractions
 {
     public interface INavCommand
     {

@@ -1,7 +1,7 @@
-﻿using Spx.Navix.UnitTests.Stubs;
+﻿using Navix.UnitTests.Stubs;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class ScreenTest
     {

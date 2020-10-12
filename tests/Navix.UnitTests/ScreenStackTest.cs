@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
-using Spx.Navix.UnitTests.Stubs;
+using Navix.UnitTests.Stubs;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class ScreenStackTest
     {

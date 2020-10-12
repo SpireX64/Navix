@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix
+﻿namespace Navix
 {
     public struct NavigatorSpecification
     {

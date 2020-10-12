@@ -1,10 +1,10 @@
-﻿using Spx.Navix.Exceptions;
-using Spx.Navix.Internal;
-using Spx.Navix.UnitTests.Stubs;
+﻿using Navix.Exceptions;
+using Navix.Internal;
+using Navix.UnitTests.Stubs;
 using Spx.Reflection;
 using Xunit;
 
-namespace Spx.Navix.UnitTests
+namespace Navix.UnitTests
 {
     public class ScreenRegistryTest
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Exceptions;
+using Navix.Abstractions;
+using Navix.Exceptions;
 using Spx.Reflection;
 
-namespace Spx.Navix.Internal
+namespace Navix.Internal
 {
     internal sealed class ScreenRegistry : IScreenRegistry
     {

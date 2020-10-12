@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Internal.Defaults;
+using Navix.Abstractions;
+using Navix.Internal.Defaults;
 
-namespace Spx.Navix
+namespace Navix
 {
     /// <summary>
     ///     Class for configuring the navigation system

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Spx.Reflection;
 
-namespace Spx.Navix.Abstractions
+namespace Navix.Abstractions
 {
     /// <summary>
     ///     The interface for high-level navigation

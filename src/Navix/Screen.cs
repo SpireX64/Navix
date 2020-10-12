@@ -1,4 +1,4 @@
-﻿namespace Spx.Navix
+﻿namespace Navix
 {
     /// <summary>
     ///     Class identifying screen in the system

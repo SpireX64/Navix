@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Spx.Navix
+namespace Navix
 {
     /// <summary>
     ///     Performs navigation specific to the current platform

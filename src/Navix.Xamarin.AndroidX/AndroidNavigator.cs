@@ -2,7 +2,7 @@
 using AndroidX.Annotations;
 using AndroidX.Fragment.App;
 
-namespace Spx.Navix.Xamarin.AndroidX
+namespace Navix.Xamarin.AndroidX
 {
     /// <summary>
     ///     Navix navigator for AndroidX

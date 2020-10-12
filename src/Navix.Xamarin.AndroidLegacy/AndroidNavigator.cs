@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Android.App;
+using Android.Content.Res;
+
 #pragma warning disable 618
 
-namespace Spx.Navix.Xamarin.AndroidLegacy
+namespace Navix.Xamarin.AndroidLegacy
 {
     public class AndroidNavigator: Navigator
     {

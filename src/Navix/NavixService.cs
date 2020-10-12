@@ -1,8 +1,8 @@
 ﻿using System;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Internal;
+using Navix.Abstractions;
+using Navix.Internal;
 
-namespace Spx.Navix
+namespace Navix
 {
     /// <summary>
     ///     The core of the Navix system.

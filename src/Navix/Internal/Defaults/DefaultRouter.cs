@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Spx.Navix.Abstractions;
+using Navix.Abstractions;
 using Spx.Reflection;
 
-namespace Spx.Navix.Internal.Defaults
+namespace Navix.Internal.Defaults
 {
     internal class DefaultRouter : IRouter
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Spx.Navix.Abstractions;
-using Spx.Navix.Exceptions;
+using Navix.Abstractions;
+using Navix.Exceptions;
 using Spx.Reflection;
 
-namespace Spx.Navix.Commands
+namespace Navix.Commands
 {
     public sealed class BackToScreenNavCommand : INavCommand
     {
