@@ -1,37 +1,34 @@
-﻿using System.Collections.Generic;
-using AndroidX.Annotations;
-using AndroidX.Fragment.App;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using Android.App;
+#pragma warning disable 618
 
-namespace Spx.Navix.Xamarin.AndroidX
+namespace Spx.Navix.Xamarin.AndroidLegacy
 {
-    /// <summary>
-    ///     Navix navigator for AndroidX
-    /// </summary>
-    public class AndroidNavigator : Navigator
+    public class AndroidNavigator: Navigator
     {
-        private readonly FragmentActivity _activity;
-        private readonly int _containerId;
+        private readonly Activity _activity;
         private readonly FragmentManager _fragmentManager;
+        private readonly int _containerId;
 
-        private readonly Stack<Screen> _internalFragmentsStack = new Stack<Screen>();
+        private readonly Stack<Screen> _internalFragmentStack = new Stack<Screen>();
 
-        public AndroidNavigator([NonNull] FragmentActivity activity, [NonNull] FragmentManager fragmentManager,
-            [IdRes] int containerId)
+        public AndroidNavigator(Activity activity, FragmentManager fragmentManager, int containerId)
         {
             _activity = activity;
             _fragmentManager = fragmentManager;
             _containerId = containerId;
         }
 
-        public AndroidNavigator([NonNull] FragmentActivity activity, [IdRes] int containerId)
+        public AndroidNavigator(Activity activity, int containerId)
         {
             _activity = activity;
-            _fragmentManager = activity.SupportFragmentManager;
             _containerId = containerId;
+            _fragmentManager = activity.FragmentManager;
         }
 
         public override NavigatorSpecification Specification { get; } = new NavigatorSpecification();
-
         public override void Forward(Screen screen, IScreenResolver resolver)
         {
             switch (resolver)
@@ -48,23 +45,22 @@ namespace Spx.Navix.Xamarin.AndroidX
 
         public override void Back()
         {
-            if (_internalFragmentsStack.Count > 0)
+            if (_internalFragmentStack.Count > 0)
             {
                 _fragmentManager.PopBackStack();
-                _internalFragmentsStack.Pop();
+                _internalFragmentStack.Pop();
             }
             else
-            {
                 _activity.Finish();
-            }
         }
 
         private void ForwardActivity(Screen screen, IActivityScreenResolver resolver)
         {
             var intent = resolver.GetActivityIntent(screen, _activity);
-            if (intent.ResolveActivity(_activity.PackageManager) != null) _activity.StartActivity(intent);
+            _activity.StartActivity(intent);
         }
 
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
         private void ForwardFragment(Screen screen, IFragmentScreenResolver resolver)
         {
             var fragment = resolver.GetFragment(screen);
@@ -74,7 +70,7 @@ namespace Spx.Navix.Xamarin.AndroidX
                 .AddToBackStack(screen.Name)
                 .Commit();
 
-            _internalFragmentsStack.Push(screen);
+            _internalFragmentStack.Push(screen);
         }
     }
 }
