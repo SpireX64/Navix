@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
+    <id>Spx.Navix.Xamarin.AndroidSupport</id>
+    <version>0.0.1</version>
+    <title>Navix.Xamarin.AndroidSupport</title>
+    <authors>SpireX (Artem Sobolenkov)</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <license type="expression">MIT</license>
-    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>
-    <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>$copyright$</copyright>
-    <tags>Tag1 Tag2</tags>
+    <license type="expression">BSD-3-Clause License</license>
+    <projectUrl>https://github.com/SpireX64/Navix</projectUrl>
+    <description>Navix library for Xamarin Android Support v7</description>
+    <copyright>SpireX (c) 2020</copyright>
+    <tags>navigation, xamarin, dotnet, library, android, support, navix, spirex, spx</tags>
+	<repository url="https://github.com/SpireX64/Navix" type="public"/>
+	<dependencies>
+		<dependency id="Spx.Navix" version="0.0.1"/>
+	</dependencies>
   </metadata>
+  <files>
+      <file src="bin/Release/Navix.Xamarin.AndroidSupport.dll"
+            target="lib/MonoAndroid/Navix.Xamarin.AndroidSupport.dll"/>
+  </files>
 </package>
