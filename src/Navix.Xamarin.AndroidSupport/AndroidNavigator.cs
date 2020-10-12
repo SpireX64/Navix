@@ -1,22 +1,18 @@
 ﻿using System.Collections.Generic;
-using AndroidX.Annotations;
-using AndroidX.Fragment.App;
+using Android.Support.Annotation;
+using Android.Support.V4.App;
 
-namespace Spx.Navix.Xamarin.AndroidX
+namespace Spx.Navix.Xamarin.AndroidSupport
 {
-    /// <summary>
-    ///     Navix navigator for AndroidX
-    /// </summary>
-    public class AndroidNavigator : Navigator
+    public class AndroidNavigator: Navigator
     {
         private readonly FragmentActivity _activity;
-        private readonly int _containerId;
         private readonly FragmentManager _fragmentManager;
+        private readonly int _containerId;
 
         private readonly Stack<Screen> _internalFragmentsStack = new Stack<Screen>();
 
-        public AndroidNavigator([NonNull] FragmentActivity activity, [NonNull] FragmentManager fragmentManager,
-            [IdRes] int containerId)
+        public AndroidNavigator([NonNull] FragmentActivity activity, [NonNull] FragmentManager fragmentManager, [IdRes] int containerId)
         {
             _activity = activity;
             _fragmentManager = fragmentManager;
@@ -54,15 +50,13 @@ namespace Spx.Navix.Xamarin.AndroidX
                 _internalFragmentsStack.Pop();
             }
             else
-            {
                 _activity.Finish();
-            }
         }
 
         private void ForwardActivity(Screen screen, IActivityScreenResolver resolver)
         {
             var intent = resolver.GetActivityIntent(screen, _activity);
-            if (intent.ResolveActivity(_activity.PackageManager) != null) _activity.StartActivity(intent);
+            _activity.StartActivity(intent);
         }
 
         private void ForwardFragment(Screen screen, IFragmentScreenResolver resolver)
@@ -71,7 +65,7 @@ namespace Spx.Navix.Xamarin.AndroidX
 
             _fragmentManager.BeginTransaction()
                 .Replace(_containerId, fragment)
-                .AddToBackStack(screen.Name)
+                .AddToBackStack(null)
                 .Commit();
 
             _internalFragmentsStack.Push(screen);
