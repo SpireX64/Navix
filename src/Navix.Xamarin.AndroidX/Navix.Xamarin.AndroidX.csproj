@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidFragmentNavigator.cs" />
     <Compile Include="AndroidNavigator.cs" />
     <Compile Include="IActivityScreenResolver.cs" />
     <Compile Include="IFragmentScreenResolver.cs" />

@@ -15,6 +15,8 @@ namespace Navix.Xamarin.AndroidX
 
         private readonly Stack<Screen> _internalFragmentsStack = new Stack<Screen>();
 
+        public override NavigatorSpecification Specification { get; } = new NavigatorSpecification();
+
         public AndroidNavigator([NonNull] FragmentActivity activity, [NonNull] FragmentManager fragmentManager,
             [IdRes] int containerId)
         {
@@ -29,9 +31,7 @@ namespace Navix.Xamarin.AndroidX
             _fragmentManager = activity.SupportFragmentManager;
             _containerId = containerId;
         }
-
-        public override NavigatorSpecification Specification { get; } = new NavigatorSpecification();
-
+        
         public override void Forward(Screen screen, IScreenResolver resolver)
         {
             switch (resolver)
