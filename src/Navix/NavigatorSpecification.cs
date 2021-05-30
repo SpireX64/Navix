@@ -1,9 +1,19 @@
 ﻿namespace Navix
 {
-    public struct NavigatorSpecification
+    public readonly struct NavigatorSpecification
     {
-        public bool BackToScreenSupported { get; set; }
-        public bool BackToRootSupported { get; set; }
-        public bool ReplaceScreenSupported { get; set; }
+        public NavigatorSpecification(
+            bool backToScreenSupported,
+            bool backToRootSupported, 
+            bool replaceScreenSupported)
+        {
+            BackToScreenSupported = backToScreenSupported;
+            BackToRootSupported = backToRootSupported;
+            ReplaceScreenSupported = replaceScreenSupported;
+        }
+        
+        public bool BackToScreenSupported { get; }
+        public bool BackToRootSupported { get; }
+        public bool ReplaceScreenSupported { get; }
     }
 }

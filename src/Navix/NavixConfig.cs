@@ -10,15 +10,11 @@ namespace Navix
     /// </summary>
     public abstract class NavixConfig
     {
-        private readonly List<INavigationMiddleware> _middlewares = new List<INavigationMiddleware>();
-
-        internal IReadOnlyCollection<INavigationMiddleware> Middlewares => _middlewares;
-
         /// <summary>
         ///     Navigation configuration
         /// </summary>
-        /// <param name="registry">Screens registry</param>
-        public abstract void Configure(IScreenRegistry registry);
+        /// <param name="reg">Screens registrar</param>
+        public abstract void Configure(IScreenRegistrar reg);
 
         /// <summary>
         ///     Allows to override the used navigation commands factory
@@ -38,18 +34,9 @@ namespace Navix
         /// <param name="commandsFactory">Navigation commands factory</param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "VirtualMemberNeverOverridden.Global")]
-        public virtual IRouter GetRouter(INavigationManager navigationManager, ICommandsFactory commandsFactory)
+        public virtual IRouter GetRouter(IScreenRegistry registry, INavigationManager navigationManager, ICommandsFactory commandsFactory)
         {
-            return new DefaultRouter(navigationManager, commandsFactory);
-        }
-
-        /// <summary>
-        ///     Adds middleware to the navigation command execution pipeline
-        /// </summary>
-        /// <param name="middleware">Middleware</param>
-        protected void AddMiddleware(INavigationMiddleware middleware)
-        {
-            _middlewares.Add(middleware);
+            return new DefaultRouter(registry, navigationManager, commandsFactory);
         }
     }
 }

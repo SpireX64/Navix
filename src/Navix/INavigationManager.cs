@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Navix.Abstractions;
+using Spx.Reflection;
 
 namespace Navix
 {
@@ -17,6 +18,8 @@ namespace Navix
         ///     Current sequence of screens
         /// </summary>
         public IEnumerable<Screen> Screens { get; }
+        
+        public uint ScreensCount { get; }
 
         /// <summary>
         ///     Specification of the used navigator

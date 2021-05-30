@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Navix
 {
@@ -13,9 +14,9 @@ namespace Navix
         {
         }
 
-        public bool IsRoot => _screens.IsEmpty;
+        public bool IsRoot => _screens.Count <= 1;
 
-        public int Count => _screens.Count;
+        public uint Count => Convert.ToUInt16(_screens.Count);
 
         public Screen? CurrentScreen
         {
@@ -50,7 +51,10 @@ namespace Navix
 
         public void Clear()
         {
+            if (_screens.Count <= 1) return;
+            var root = _screens.LastOrDefault();
             _screens.Clear();
+            _screens.Push(root);
         }
     }
 }
