@@ -22,9 +22,9 @@ namespace Navix
 
             var commandsFactory = config.GetCommandsFactory(_registry);
             _navigationManager = new NavigationManager(_registry);
-            _navigationManager.SetMiddlewares(config.Middlewares);
+            //_navigationManager.SetMiddlewares(config.Middlewares);
 
-            Router = config.GetRouter(_navigationManager, commandsFactory);
+            Router = config.GetRouter(_registry, _navigationManager, commandsFactory);
         }
 
         /// <summary>

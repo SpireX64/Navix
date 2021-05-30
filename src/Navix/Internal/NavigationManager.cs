@@ -6,21 +6,21 @@ namespace Navix.Internal
 {
     internal sealed class NavigationManager : INavigationManager, INavigatorHolder
     {
+        private volatile Navigator? _navigator;
+        private readonly IScreenRegistry _registry;
         private readonly Queue<INavCommand> _pendingCommands = new Queue<INavCommand>();
 
         // ReSharper disable once NotAccessedField.Local
-        private readonly Type? _rootScreenType;
         private readonly ScreenStack _screens = new ScreenStack();
-        private IReadOnlyCollection<INavigationMiddleware> _middlewares;
 
         public NavigationManager(IScreenRegistry registry)
         {
-            _rootScreenType = registry.RootScreenType;
-            _middlewares = new INavigationMiddleware[0];
+            _registry = registry;
         }
 
         public bool HasPendingCommands => _pendingCommands.Count > 0;
         public IEnumerable<Screen> Screens => _screens;
+        public uint ScreensCount => _screens.Count;
 
         public NavigatorSpecification Specification { get; private set; }
 
@@ -40,7 +40,11 @@ namespace Navix.Internal
                 }
         }
 
-        public Navigator? Navigator { get; private set; }
+        public Navigator? Navigator
+        {
+            get => _navigator;
+            private set => _navigator = value;
+        }
 
         public void SetNavigator(Navigator navigator)
         {
@@ -54,14 +58,14 @@ namespace Navix.Internal
 
         public void RemoveNavigator()
         {
-            Navigator = null;
+            _navigator = null;
         }
 
         private void ApplyPendingCommands()
         {
             while (_pendingCommands.Count > 0)
             {
-                if (Navigator is null) return;
+                if (_navigator is null) return;
                 var command = _pendingCommands.Dequeue();
 
                 InvokeMiddlewaresBefore(ref command);
@@ -70,20 +74,15 @@ namespace Navix.Internal
             }
         }
 
-        public void SetMiddlewares(IReadOnlyCollection<INavigationMiddleware> middlewares)
-        {
-            _middlewares = middlewares;
-        }
-
         private void InvokeMiddlewaresBefore(ref INavCommand incomingCommand)
         {
-            foreach (var middleware in _middlewares)
+            foreach (var middleware in _registry.Middlewares)
                 middleware.BeforeApply(_screens.CurrentScreen, ref incomingCommand);
         }
 
         private void InvokeMiddlewaresAfter(INavCommand command)
         {
-            foreach (var middleware in _middlewares)
+            foreach (var middleware in _registry.Middlewares)
                 middleware.AfterApply(_screens.CurrentScreen, command);
         }
     }

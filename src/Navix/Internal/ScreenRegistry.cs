@@ -1,41 +1,49 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using Navix.Abstractions;
 using Navix.Exceptions;
 using Spx.Reflection;
 
 namespace Navix.Internal
 {
-    internal sealed class ScreenRegistry : IScreenRegistry
+    internal sealed class ScreenRegistry : IScreenRegistry, IScreenRegistrar
     {
-        private readonly ConcurrentDictionary<int, IScreenResolver>
-            _screenResolversMap = new ConcurrentDictionary<int, IScreenResolver>();
+        private readonly ConcurrentDictionary<int, ScreenEntry> _screens =
+            new ConcurrentDictionary<int, ScreenEntry>();
 
-        public bool IsEmpty => _screenResolversMap.IsEmpty;
-        public Type? RootScreenType { get; private set; }
+        private readonly List<INavigationMiddleware> _middlewares =
+            new List<INavigationMiddleware>();
+        
+        public bool IsEmpty => _screens.IsEmpty;
 
-        public void Register(Class<Screen> screenClass, IScreenResolver resolver)
+        public Class<Screen>? RootScreenClass => _screens.Values.FirstOrDefault(it => it.IsRoot)?.ScreenClass;
+        public IReadOnlyCollection<INavigationMiddleware> Middlewares => _middlewares.AsReadOnly();
+
+        public IScreenRegistrationConfig Register(Class<Screen> screenClass, IScreenResolver resolver)
         {
             var typeHash = screenClass.GetHashCode();
-            _screenResolversMap.TryAdd(typeHash, resolver);
+            var entry = new ScreenEntry(screenClass, resolver);
+            _screens.TryAdd(typeHash, entry);
+            return entry;
         }
 
-        public void RegisterAsRoot(Class<Screen> rootScreenClass)
+        public void AddMiddleware(INavigationMiddleware middleware)
         {
-            RootScreenType = rootScreenClass.Type;
+            _middlewares.Add(middleware);
         }
 
         public bool HasScreen(Class<Screen> screenClass)
         {
             var typeHash = screenClass.GetHashCode();
-            return _screenResolversMap.ContainsKey(typeHash);
+            return _screens.ContainsKey(typeHash);
         }
 
-        public IScreenResolver Resolve(Screen screen)
+        public ScreenEntry Resolve(Screen screen)
         {
             var typeHash = screen.GetType().GetHashCode();
-            return _screenResolversMap.TryGetValue(typeHash, out var resolver)
-                ? resolver
+            return _screens.TryGetValue(typeHash, out var entry)
+                ? entry
                 : throw new UnregisteredScreenException(screen);
         }
     }

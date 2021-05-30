@@ -19,9 +19,8 @@ namespace Navix.Internal.Defaults
 
         public ICollection<INavCommand> Forward(Screen screen)
         {
-            var resolver = _registry.Resolve(screen);
-
-            var command = new ForwardNavCommand(screen, resolver);
+            var entry = _registry.Resolve(screen);
+            var command = new ForwardNavCommand(screen, entry.Resolver);
             return new[] {command};
         }
 
@@ -45,7 +44,7 @@ namespace Navix.Internal.Defaults
             {
                 var position = screens
                     .Select(e => e.GetType())
-                    .PositionOf<Type>(screenClass);
+                    .PositionOf(screenClass.Type);
 
                 for (var i = 0; i < position; i++)
                     commands.Add(new BackNavCommand());
@@ -62,9 +61,12 @@ namespace Navix.Internal.Defaults
             if (spec.BackToRootSupported)
                 commands.Add(new BackToRootNavCommand());
             else
-                // ReSharper disable once PossibleMultipleEnumeration
-                for (var i = 0; i < screens.Count(); i++)
+            {
+                var count = screens.Count();
+                for (var i = 1; i < count; i++)
                     commands.Add(new BackNavCommand());
+            }
+
             return commands;
         }
 
@@ -73,17 +75,17 @@ namespace Navix.Internal.Defaults
             NavigatorSpecification spec,
             Screen screen)
         {
-            var resolver = _registry.Resolve(screen);
+            var entry = _registry.Resolve(screen);
 
             var commands = new List<INavCommand>();
             if (spec.ReplaceScreenSupported)
             {
-                commands.Add(new ReplaceScreenNavCommand(screen, resolver));
+                commands.Add(new ReplaceScreenNavCommand(screen, entry.Resolver));
             }
             else
             {
                 commands.Add(new BackNavCommand());
-                commands.Add(new ForwardNavCommand(screen, resolver));
+                commands.Add(new ForwardNavCommand(screen, entry.Resolver));
             }
 
             return commands;
