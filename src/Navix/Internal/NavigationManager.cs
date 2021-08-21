@@ -69,7 +69,7 @@ namespace Navix.Internal
                 var command = _pendingCommands.Dequeue();
 
                 InvokeMiddlewaresBefore(ref command);
-                command.Apply(Navigator, _screens);
+                command.Apply(_navigator, _screens);
                 InvokeMiddlewaresAfter(command);
             }
         }
